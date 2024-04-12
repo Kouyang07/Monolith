@@ -1,2 +1,4 @@
-package org.kouyang07.monolith;public class items {
+package org.kouyang07.monolith;
+
+public class items {
 }
