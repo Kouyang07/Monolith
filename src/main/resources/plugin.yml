@@ -1,0 +1,7 @@
+name: Monolith
+version: '${version}'
+main: org.kouyang07.monolith.Monolith
+api-version: '1.20'
+load: STARTUP
+authors: [Kouyang07]
+description: The official plugin for Monolith!
