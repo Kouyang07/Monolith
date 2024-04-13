@@ -7,9 +7,17 @@ authors: [Kouyang07]
 description: The official plugin for Monolith!
 commands:
   ls:
-    description: Set player health
+    description: Set player health.
     usage: /ls set [player] [health]
     permission: monolith.command.sethealth
   monocreate:
     description: Gives a custom item to the player.
-    usage: /monocreate <itemName>
+    usage: /monocreate [itemName]
+    aliases: [mc]
+  monospawn:
+    description: Spawns a custom mob.
+    usage: /monospawn [mob]
+    aliases: [ms]
+  skills:
+    description: Open the skills GUI
+    usage: /skills

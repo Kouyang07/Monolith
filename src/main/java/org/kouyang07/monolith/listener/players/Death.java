@@ -1,32 +1,25 @@
-package org.kouyang07.monolith.listener;
+package org.kouyang07.monolith.listener.players;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
+import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.combat.TotemOfSafekeeping;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Scanner;
-
-public class PlayerListener implements Listener {
+public class Death implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         onPlayerDeathLS(event);
         onPlayerDeathTotem(event);
     }
-
-    public void onPlayerDeathLS(PlayerDeathEvent event) {
+    private void onPlayerDeathLS(PlayerDeathEvent event) {
         Player deceased = event.getEntity();
         Player killer = deceased.getKiller();
 
@@ -41,12 +34,12 @@ public class PlayerListener implements Listener {
         }
     }
 
-    public void onPlayerDeathTotem(PlayerDeathEvent event){
+    private void onPlayerDeathTotem(PlayerDeathEvent event){
         ItemStack totemItem = null;
         // Check both hands for the Totem of Safekeeping
         for (ItemStack item : new ItemStack[]{event.getEntity().getInventory().getItemInOffHand(), event.getEntity().getInventory().getItemInMainHand()}) {
             ItemMeta meta = item.getItemMeta();
-            if (meta != null && meta.hasDisplayName() && meta.getDisplayName().equals("Totem of Safekeeping")) {
+            if (MonoItemsIO.equals(MonoItems.totemOfSafekeeping.create().getItemMeta(), meta)) {
                 totemItem = item;
                 break;
             }

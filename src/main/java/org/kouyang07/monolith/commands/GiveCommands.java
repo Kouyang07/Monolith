@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.kouyang07.monolith.items.Combat;
+import org.kouyang07.monolith.items.MonoItems;
 
 public class GiveCommands implements CommandExecutor {
 
@@ -28,9 +28,11 @@ public class GiveCommands implements CommandExecutor {
         // Determine which item to give based on the first argument
         switch (args[0].toLowerCase()) {
             case "totem_of_safekeeping":
-                item = Combat.createTotemOfSafekeeping();
+                item = MonoItems.totemOfSafekeeping.create();
                 break;
-            // Add more cases for additional items here
+            case "ingot_of_gambling":
+                item = MonoItems.ingotOfGambling.create();
+                break;
             default:
                 sender.sendMessage("Item not recognized.");
                 break;
