@@ -34,16 +34,15 @@ public class Interaction implements Listener {
 
     private void onIngotOfGambling(PlayerInteractEvent event) {
         ItemStack ingotOfGambling = null;
-        // Check both hands for the Totem of Safekeeping
+        // Check both hands for the Ingot of Gambling
         for (ItemStack item : new ItemStack[]{event.getPlayer().getInventory().getItemInOffHand(), event.getPlayer().getInventory().getItemInMainHand()}) {
             ItemMeta meta = item.getItemMeta();
-            if (meta != null && MonoItemsIO.equals(MonoItems.ingotOfGambling.create().getItemMeta(), meta)) {
+            if (meta != null && MonoItems.ingotOfGambling.create().getItemMeta().equals(meta)) {
                 ingotOfGambling = item;
                 break;
             }
         }
-
-        if (ingotOfGambling != null &&!useable(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling)) {
+        if (!useable(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling)) {
             event.getPlayer().sendMessage(Component.text("You may not use it yet, its on cooldown").color(Monolith.SUCCESS_COLOR_RED));
             return;
         }

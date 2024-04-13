@@ -42,6 +42,12 @@ public class GiveCommands implements CommandExecutor {
             case "sword_of_greed":
                 item = MonoItems.swordOfGreed.create();
                 break;
+            case "rage_helmet":
+                item = MonoItems.rageHelmet.create();
+                break;
+            case "claymore":
+                item = MonoItems.claymore.create();
+                break;
             default:
                 sender.sendMessage("Item not recognized.");
                 break;

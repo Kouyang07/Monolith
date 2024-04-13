@@ -1,10 +1,11 @@
 package org.kouyang07.monolith.listener.players;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -18,9 +19,11 @@ import org.kouyang07.monolith.items.MonoItemsIO;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.debug;
 
 public class Attack implements Listener {
@@ -28,21 +31,21 @@ public class Attack implements Listener {
     public void onDamage(EntityDamageByEntityEvent event) {
         statDamage(event);
         weaponCheck(event);
-
+        armorCheck(event);
+        showDamage(event);
     }
 
     private void statDamage(EntityDamageByEntityEvent event){
-        if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity) {
+        if (event.getDamager() instanceof Player) {
             double originalDamage = event.getDamage();
             double additionDamage = Monolith.playerAttributes.get(event.getDamager().getUniqueId()).getExtraDamage();
             event.setDamage(originalDamage + additionDamage);
-        } else if (event.getEntity() instanceof Player && event.getDamager() instanceof LivingEntity) {
+        } else if (event.getEntity() instanceof Player) {
             double originalDamage = event.getDamage();
             double defense = Monolith.playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense();
-            event.setDamage(originalDamage - defense);
+            event.setDamage(originalDamage - defense * 5);
         }
     }
-
     private void weaponCheck(EntityDamageByEntityEvent event){
         if (event.getDamager() instanceof Player player && event.getEntity() instanceof LivingEntity) {
             ItemStack mainHandItem = player.getInventory().getItemInMainHand();
@@ -82,6 +85,50 @@ public class Attack implements Listener {
                     }
                 }
             }
+        }
+    }
+    private void armorCheck(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Player player){
+            ItemStack helmet = player.getInventory().getHelmet();
+            ItemStack rageHelmet = MonoItems.rageHelmet.create();
+            assert helmet != null;
+            if(MonoItemsIO.equals(helmet.getItemMeta(), rageHelmet.getItemMeta())){
+                if(debug){
+                    getLogger().log(Level.INFO, "Rage Helmet found on " + player.getName() + ".");
+                }
+                double health = player.getHealth();
+                double damage = event.getDamage();
+                double newDamage = damage + (Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue() - health) * 0.5;
+                event.setDamage(newDamage);
+            } else {
+                // Not the Rage Helmet.
+                if(debug){
+                    getLogger().log(Level.INFO, "No Rage Helmet found on " + player.getName() + ".");
+                }
+            }
+        }
+    }
+    private void showDamage(EntityDamageByEntityEvent event){
+        if (event.getDamager() instanceof Player) {
+            double damage = event.getFinalDamage();
+
+            // Spawn the armor stand at the location where the entity was hit
+            Location hitLocation = event.getEntity().getLocation();
+            hitLocation.add(2, 0, 0); // Raise the height to make the armor stand more visible
+
+            ArmorStand armorStand = (ArmorStand) hitLocation.getWorld().spawnEntity(hitLocation, EntityType.ARMOR_STAND);
+            armorStand.setGravity(false);
+            armorStand.setCanPickupItems(false);
+            armorStand.customName(Component.text(Math.round(damage)).color(
+                    damage > 10 ? TextColor.color(139, 0, 0) : // Red if damage is greater than 5
+                            damage > 5 ? TextColor.color(255, 140, 0) : // Yellow if damage is greater than 2
+                                    TextColor.color(128, 128, 128) // Green otherwise
+            ));
+            armorStand.setCustomNameVisible(true);
+            armorStand.setVisible(false);
+
+            // Make the armor stand disappear after some time
+            getPlugin(Monolith.class).getServer().getScheduler().runTaskLater(getPlugin(Monolith.class), armorStand::remove, 60L); // 60 ticks = 3 seconds
         }
     }
 }

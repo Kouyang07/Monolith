@@ -58,6 +58,10 @@ public final class Monolith extends JavaPlugin {
         monoItems.add(MonoItems.ingotOfGambling);
         monoItems.add(MonoItems.totemOfSafekeeping);
         monoItems.add(MonoItems.swordOfGreed);
+        monoItems.add(MonoItems.speedBoots);
+        monoItems.add(MonoItems.golemChestplate);
+        monoItems.add(MonoItems.rageHelmet);
+        monoItems.add(MonoItems.claymore);
 
         for(MonoItemsIO items : monoItems){
             getLogger().log(Level.INFO, "Registering " + items.getClass().getSimpleName());

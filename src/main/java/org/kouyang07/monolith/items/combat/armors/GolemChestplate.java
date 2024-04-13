@@ -2,11 +2,15 @@ package org.kouyang07.monolith.items.combat.armors;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItemsIO;
 
 import java.util.ArrayList;
@@ -30,5 +34,18 @@ public class GolemChestplate extends MonoItemsIO {
         lore.add(Component.text("Gives slowness 1").color(GRAY));
         item.lore(lore);
         return item;
+    }
+    @Override
+    public Recipe recipe() {
+        ItemStack item = create();
+        NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "golem_chestplate");
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+        recipe.shape("IGI",
+                "III",
+                "III");
+        recipe.setIngredient('I', Material.IRON_BLOCK);
+        recipe.setIngredient('G', Material.GOLDEN_APPLE);
+        //Bukkit.addRecipe(recipe);
+        return recipe;
     }
 }
