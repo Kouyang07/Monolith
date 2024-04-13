@@ -1,6 +1,7 @@
 package org.kouyang07.monolith.listener.players;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +22,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.debug;
 
 public class Interaction implements Listener {
@@ -29,6 +31,54 @@ public class Interaction implements Listener {
     public void onPlayerInteractEvent(PlayerInteractEvent event){
         if(event.getAction().isRightClick()){
             onIngotOfGambling(event);
+            onBloodSacrifice(event);
+            onDeathCount(event);
+        }
+    }
+    private void onDeathCount(PlayerInteractEvent event) {
+        ItemStack deathCount = null;
+        // Check both hands for the Ingot of Gambling
+        for (ItemStack item : new ItemStack[]{event.getPlayer().getInventory().getItemInOffHand(), event.getPlayer().getInventory().getItemInMainHand()}) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && MonoItems.deathCount.create().getItemMeta().equals(meta)) {
+                deathCount = item;
+                break;
+            }
+        }
+        if (deathCount != null) {
+            if (event.getPlayer().getHealth() > 17) {
+                event.getPlayer().setHealth(event.getPlayer().getHealth() - 17);
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 19));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 400, 9));
+                getPlugin(Monolith.class).getServer().getScheduler().runTaskLater(getPlugin(Monolith.class), () -> {
+                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 300, 19));
+                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 300, 1));
+                }, 400L); // 60 ticks = 3 seconds
+                event.getPlayer().sendMessage(Component.text("The Death Count has granted you power").color(Monolith.SUCCESS_COLOR_GREEN));
+            } else {
+                event.getPlayer().sendMessage(Component.text("You do not have enough health to use this item").color(Monolith.SUCCESS_COLOR_RED));
+            }
+        }
+    }
+
+    private void onBloodSacrifice(PlayerInteractEvent event) {
+        ItemStack bloodSacrifice = null;
+        // Check both hands for the Ingot of Gambling
+        for (ItemStack item : new ItemStack[]{event.getPlayer().getInventory().getItemInOffHand(), event.getPlayer().getInventory().getItemInMainHand()}) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && MonoItems.bloodSacrifice.create().getItemMeta().equals(meta)) {
+                bloodSacrifice = item;
+                break;
+            }
+        }
+        if(bloodSacrifice != null){
+            if(event.getPlayer().getHealth() > 10){
+                event.getPlayer().setHealth(event.getPlayer().getHealth() - 10);
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+                event.getPlayer().sendMessage(Component.text("The Blood Sacrifice has granted you strength").color(Monolith.SUCCESS_COLOR_GREEN));
+            }else{
+                event.getPlayer().sendMessage(Component.text("You do not have enough health to use this item").color(Monolith.SUCCESS_COLOR_RED));
+            }
         }
     }
 

@@ -48,6 +48,14 @@ public class GiveCommands implements CommandExecutor {
             case "claymore":
                 item = MonoItems.claymore.create();
                 break;
+            case "blood_sacrifice":
+                item = MonoItems.bloodSacrifice.create();
+                break;
+            case "death_count":
+                item = MonoItems.deathCount.create();
+                break;
+            case "soldiers_repose":
+                item = MonoItems.soldiersRepose.create();
             default:
                 sender.sendMessage("Item not recognized.");
                 break;

@@ -89,9 +89,11 @@ public class Attack implements Listener {
     }
     private void armorCheck(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Player player){
+            if(player.getInventory().getHelmet() == null){
+                return;
+            }
             ItemStack helmet = player.getInventory().getHelmet();
             ItemStack rageHelmet = MonoItems.rageHelmet.create();
-            assert helmet != null;
             if(MonoItemsIO.equals(helmet.getItemMeta(), rageHelmet.getItemMeta())){
                 if(debug){
                     getLogger().log(Level.INFO, "Rage Helmet found on " + player.getName() + ".");
