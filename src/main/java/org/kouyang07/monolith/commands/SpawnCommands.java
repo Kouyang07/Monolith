@@ -1,5 +1,6 @@
-package org.kouyang07.monolith.mobs;
+package org.kouyang07.monolith.commands;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+import org.kouyang07.monolith.Monolith;
 
 public class SpawnCommands implements CommandExecutor {
     @Override
@@ -41,6 +43,9 @@ public class SpawnCommands implements CommandExecutor {
         zombie.setShouldBurnInDay(false);
         zombie.setCanBreakDoors(false);
         zombie.setCanPickupItems(false);
+
+        zombie.customName(Component.text("Elite Zombie").color(Monolith.SUCCESS_COLOR_RED));
+        zombie.setCustomNameVisible(true);
 
         // Set equipment
         ItemStack sword = new ItemStack(org.bukkit.Material.DIAMOND_SWORD);
@@ -72,6 +77,9 @@ public class SpawnCommands implements CommandExecutor {
         skeleton.setFireTicks(0);
         skeleton.setShouldBurnInDay(false);
         skeleton.setCanPickupItems(false);
+
+        skeleton.customName(Component.text("Elite Skeleton").color(Monolith.SUCCESS_COLOR_RED));
+        skeleton.setCustomNameVisible(true);
 
         // Set equipment
         ItemStack bow = new ItemStack(Material.BOW);

@@ -2,10 +2,6 @@ package org.kouyang07.monolith;
 
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kouyang07.monolith.commands.GiveCommands;
 import org.kouyang07.monolith.commands.LSCommands;
@@ -13,17 +9,14 @@ import org.kouyang07.monolith.commands.StatCommands;
 import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.items.cooldown.Cooldown;
 import org.kouyang07.monolith.items.MonoItemsIO;
-import org.kouyang07.monolith.items.combat.TotemOfSafekeeping;
 import org.kouyang07.monolith.listener.MobListener;
 import org.kouyang07.monolith.listener.players.*;
-import org.kouyang07.monolith.mobs.SpawnCommands;
+import org.kouyang07.monolith.commands.SpawnCommands;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.bukkit.Bukkit.getPluginsFolder;
 
@@ -78,6 +71,7 @@ public final class Monolith extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Inventory(), this);
         getServer().getPluginManager().registerEvents(new Attack(), this);
         getServer().getPluginManager().registerEvents(new Move(), this);
+        getServer().getPluginManager().registerEvents(new Join(), this);
     }
 
     public void registerCommands(){
