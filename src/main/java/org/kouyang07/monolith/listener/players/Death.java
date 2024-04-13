@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.items.MonoItemsIO;
-import org.kouyang07.monolith.items.combat.TotemOfSafekeeping;
 
 public class Death implements Listener {
     @EventHandler

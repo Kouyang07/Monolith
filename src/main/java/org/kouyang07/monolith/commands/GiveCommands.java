@@ -33,6 +33,15 @@ public class GiveCommands implements CommandExecutor {
             case "ingot_of_gambling":
                 item = MonoItems.ingotOfGambling.create();
                 break;
+            case "golem_chestplate":
+                item = MonoItems.golemChestplate.create();
+                break;
+            case "speed_boots":
+                item = MonoItems.speedBoots.create();
+                break;
+            case "sword_of_greed":
+                item = MonoItems.swordOfGreed.create();
+                break;
             default:
                 sender.sendMessage("Item not recognized.");
                 break;

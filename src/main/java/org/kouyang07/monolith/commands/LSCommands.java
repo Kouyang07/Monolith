@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class LSCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -48,7 +50,7 @@ public class LSCommands implements CommandExecutor {
             }
 
             // Set the player's max health
-            target.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
+            Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(maxHealth);
             target.setHealth(maxHealth); // Optionally set current health to max as well
             player.sendMessage("Set " + target.getName() + "'s max health to " + maxHealth);
             return true;

@@ -1,77 +1,96 @@
 package org.kouyang07.monolith.listener.players;
 
+import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.GUI;
 import org.kouyang07.monolith.Monolith;
+import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Level;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getPluginsFolder;
 import static org.kouyang07.monolith.Monolith.debug;
 import static org.kouyang07.monolith.Monolith.playerAttributes;
+import static org.kouyang07.monolith.items.MonoItems.golemChestplate;
 
 public class Inventory implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory() != GUI.skillTree) return;
-        event.setCancelled(true);
-
-        Player player = (Player) event.getWhoClicked();
-        ItemStack clickedItem = event.getCurrentItem();
-
-        if (clickedItem == null || clickedItem.getItemMeta() == null) return;
-        CustomAttributes playerAttributes;
-        if(Monolith.playerAttributes.containsKey(player.getUniqueId())){
-            playerAttributes = Monolith.playerAttributes.get(player.getUniqueId());
-        }else{
-            playerAttributes = new CustomAttributes(0, 0, 0);
-        }
-
-        switch (clickedItem.getType()) {
-            case IRON_SWORD:
-                if(pay(player, playerAttributes.getExtraDamage())){
-                    playerAttributes.setExtraDamage(playerAttributes.getExtraDamage() + 1);
-                    Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
-                    player.sendMessage(Component.text(playerAttributes.getExtraDamage() - 1 + "->" + playerAttributes.getExtraDamage()).color(Monolith.SUCCESS_COLOR_GREEN));
-                    if (debug) {
-                        getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their damage by 1");
-                    }
-                    saveAttributes();
-                }
-                break;
-            case IRON_CHESTPLATE:
-                if(pay(player, playerAttributes.getExtraDefense())) {
-                    playerAttributes.setExtraDefense(playerAttributes.getExtraDefense() + 1);
-                    Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
-                    player.sendMessage(Component.text(playerAttributes.getExtraDefense() - 1 + "->" + playerAttributes.getExtraDefense()).color(Monolith.SUCCESS_COLOR_GREEN));
-                    if (debug) {
-                        getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their defense by 1");
-                    }
-                }
-                break;
-            case FEATHER:
-                if(pay(player, playerAttributes.getExtraSpeed())) {
-                    playerAttributes.setExtraSpeed(playerAttributes.getExtraSpeed() + 1);
-                    Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
-                    player.sendMessage(Component.text(playerAttributes.getExtraSpeed() - 1 + "->" + playerAttributes.getExtraSpeed()).color(Monolith.SUCCESS_COLOR_GREEN));
-                    if (debug) {
-                        getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their speed by 1");
-                    }
-                }
-                break;
-        }
+        skillTree(event);
     }
 
+    @EventHandler
+    public void onArmorChange(PlayerArmorChangeEvent event) {
+        armorChange(event);
+    }
+
+    private void skillTree(InventoryClickEvent event){
+        if (event.getInventory() == GUI.skillTree){
+            event.setCancelled(true);
+
+            Player player = (Player) event.getWhoClicked();
+            ItemStack clickedItem = event.getCurrentItem();
+
+            if (clickedItem == null || clickedItem.getItemMeta() == null) return;
+            CustomAttributes playerAttributes;
+            if(Monolith.playerAttributes.containsKey(player.getUniqueId())){
+                playerAttributes = Monolith.playerAttributes.get(player.getUniqueId());
+            }else{
+                playerAttributes = new CustomAttributes(0, 0, 0);
+            }
+
+            switch (clickedItem.getType()) {
+                case IRON_SWORD:
+                    if (pay(player, playerAttributes.getExtraDamage())) {
+                        playerAttributes.setExtraDamage(playerAttributes.getExtraDamage() + 1);
+                        Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
+                        player.sendMessage(Component.text(playerAttributes.getExtraDamage() - 1 + "->" + playerAttributes.getExtraDamage()).color(Monolith.SUCCESS_COLOR_GREEN));
+                        if (debug) {
+                            getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their damage by 1");
+                        }
+                        saveAttributes();
+                    }
+                    break;
+                case IRON_CHESTPLATE:
+                    if (pay(player, playerAttributes.getExtraDefense())) {
+                        playerAttributes.setExtraDefense(playerAttributes.getExtraDefense() + 1);
+                        Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
+                        player.sendMessage(Component.text(playerAttributes.getExtraDefense() - 1 + "->" + playerAttributes.getExtraDefense()).color(Monolith.SUCCESS_COLOR_GREEN));
+                        if (debug) {
+                            getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their defense by 1");
+                        }
+                    }
+                    break;
+                case FEATHER:
+                    if (pay(player, playerAttributes.getExtraSpeed())) {
+                        playerAttributes.setExtraSpeed(playerAttributes.getExtraSpeed() + 1);
+                        Monolith.playerAttributes.put(player.getUniqueId(), playerAttributes);
+                        player.sendMessage(Component.text(playerAttributes.getExtraSpeed() - 1 + "->" + playerAttributes.getExtraSpeed()).color(Monolith.SUCCESS_COLOR_GREEN));
+                        if (debug) {
+                            getLogger().log(Level.INFO, "Player " + player.getName() + " has increased their speed by 1");
+                        }
+                    }
+                    break;
+            }
+        }
+    }
     private boolean pay(Player player, int currentValue){
         if(player.getGameMode().equals(GameMode.CREATIVE)){
             return true;
@@ -149,5 +168,33 @@ public class Inventory implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void armorChange(PlayerArmorChangeEvent event){
+        if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.CHEST) {
+            if (event.getNewItem().getType() == Material.IRON_CHESTPLATE) {
+                if (MonoItemsIO.equals(event.getNewItem().getItemMeta(), golemChestplate.create().getItemMeta())) {
+                    applyGolemEffects(event.getPlayer());
+                }
+            } else {
+                removeGolemEffects(event.getPlayer());
+            }
+        }else if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.FEET){
+            if(event.getNewItem().getType() == Material.LEATHER_BOOTS && MonoItemsIO.equals(event.getNewItem().getItemMeta(), MonoItems.speedBoots.create().getItemMeta())){
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false, true));
+            }else{
+                event.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+            }
+        }
+    }
+
+    private void applyGolemEffects(Player player) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 0, false, false, true));
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
+    }
+
+    private void removeGolemEffects(Player player) {
+        player.removePotionEffect(PotionEffectType.SLOW);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
     }
 }

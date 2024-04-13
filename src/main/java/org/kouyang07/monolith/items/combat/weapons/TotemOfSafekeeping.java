@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.items.combat;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
