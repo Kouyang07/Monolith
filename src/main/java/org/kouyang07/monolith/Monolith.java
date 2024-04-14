@@ -59,6 +59,7 @@ public final class Monolith extends JavaPlugin {
         monoItems.add(MonoItems.totemOfSafekeeping);
         monoItems.add(MonoItems.swordOfGreed);
         monoItems.add(MonoItems.claymore);
+        monoItems.add(MonoItems.sonicCrossbow);
 
         monoItems.add(MonoItems.speedBoots);
         monoItems.add(MonoItems.golemChestplate);
@@ -82,6 +83,7 @@ public final class Monolith extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Attack(), this);
         getServer().getPluginManager().registerEvents(new Move(), this);
         getServer().getPluginManager().registerEvents(new Join(), this);
+        getServer().getPluginManager().registerEvents(new Projectile(), this);
     }
 
     public void registerCommands(){

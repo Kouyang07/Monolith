@@ -36,30 +36,18 @@ public class Move implements Listener {
     }
 
     private void onSoldiersRepose(PlayerToggleSneakEvent event){
-        Player player = event.getPlayer();
-        boolean hasLeggings = player.getInventory().getLeggings() != null;
-        boolean correctLeggings = hasLeggings && player.getInventory().getLeggings().getType() == Material.DIAMOND_LEGGINGS
-                && MonoItemsIO.equals(player.getInventory().getLeggings().getItemMeta(), MonoItems.soldiersRepose.create().getItemMeta());
-        boolean shouldApplyEffects = correctLeggings && !player.isSneaking();
-
-        if (shouldApplyEffects) {
-            applyReposeEffects(player);
-        } else {
-            removeReposeEffects(player);
+        if(event.getPlayer().getInventory().getLeggings() != null) {
+            if (event.getPlayer().getInventory().getLeggings().getItemMeta().equals(MonoItems.soldiersRepose.create().getItemMeta()) && !event.getPlayer().isSneaking()) {
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 9, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false, true));
+            } else {
+                event.getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
+                event.getPlayer().removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                event.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+                event.getPlayer().removePotionEffect(PotionEffectType.WEAKNESS);
+            }
         }
-    }
-
-    private void applyReposeEffects(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0, false, false, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 9, false, false, true));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false, true));
-    }
-
-    private void removeReposeEffects(Player player) {
-        player.removePotionEffect(PotionEffectType.REGENERATION);
-        player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-        player.removePotionEffect(PotionEffectType.SLOW);
-        player.removePotionEffect(PotionEffectType.WEAKNESS);
     }
 }

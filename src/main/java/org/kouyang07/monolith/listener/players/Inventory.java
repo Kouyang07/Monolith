@@ -9,7 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.GUI;
@@ -39,6 +41,11 @@ public class Inventory implements Listener {
     @EventHandler
     public void onArmorChange(PlayerArmorChangeEvent event) {
         armorChange(event);
+    }
+
+    @EventHandler
+    public void onHold(PlayerItemHeldEvent event) {
+        sonicCrossbow(event);
     }
 
     private void skillTree(InventoryClickEvent event){
@@ -173,14 +180,14 @@ public class Inventory implements Listener {
     private void armorChange(PlayerArmorChangeEvent event){
         if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.CHEST) {
             if (event.getNewItem().getType() == Material.IRON_CHESTPLATE) {
-                if (MonoItemsIO.equals(event.getNewItem().getItemMeta(), golemChestplate.create().getItemMeta())) {
+                if (event.getNewItem().getItemMeta().equals(golemChestplate.create().getItemMeta())) {
                     applyGolemEffects(event.getPlayer());
                 }
             } else {
                 removeGolemEffects(event.getPlayer());
             }
         }else if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.FEET){
-            if(event.getNewItem().getType() == Material.LEATHER_BOOTS && MonoItemsIO.equals(event.getNewItem().getItemMeta(), MonoItems.speedBoots.create().getItemMeta())){
+            if(event.getNewItem().getType() == Material.LEATHER_BOOTS && event.getNewItem().getItemMeta().equals(MonoItems.speedBoots.create().getItemMeta())){
                 event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false, true));
             }else{
                 event.getPlayer().removePotionEffect(PotionEffectType.SPEED);
@@ -197,4 +204,24 @@ public class Inventory implements Listener {
         player.removePotionEffect(PotionEffectType.SLOW);
         Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
     }
-}
+
+    private void sonicCrossbow(PlayerItemHeldEvent event){
+        Player player = event.getPlayer();
+        ItemStack sonicCrossBow = null;
+        for (ItemStack item : new ItemStack[]{player.getInventory().getItemInOffHand(), player.getInventory().getItemInMainHand()}) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && MonoItems.sonicCrossbow.create().getItemMeta().equals(meta)) {
+                sonicCrossBow = item;
+                break;
+            }
+        }
+        if(sonicCrossBow == null) return;
+        if (sonicCrossBow.equals(MonoItems.sonicCrossbow.create().getItemMeta())) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 0, true, true));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, -1, 19, true, true));
+
+        } else{
+                player.removePotionEffect(PotionEffectType.SPEED);
+                player.removePotionEffect(PotionEffectType.WEAKNESS);}
+        }
+    }

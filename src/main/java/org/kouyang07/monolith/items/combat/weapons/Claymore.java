@@ -28,7 +28,7 @@ public class Claymore extends MonoItemsIO {
         if(meta != null){
             meta.displayName(Component.text("Claymore").color(PURPLE));
             AttributeModifier damageModifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", 18.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed", -2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed", -3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
             meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, damageModifier);
             meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
             meta.addEnchant(Enchantment.DURABILITY, 10, true);

@@ -1,6 +1,7 @@
-package org.kouyang07.monolith.items.combat.armors;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -13,36 +14,35 @@ import org.kouyang07.monolith.items.MonoItemsIO;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.*;
 
-public class RageHelmet extends MonoItemsIO {
-    @Override
+public class SonicCrossbow extends MonoItemsIO{
     public ItemStack create() {
-        ItemStack item = new ItemStack(Material.NETHERITE_HELMET, 1);
+        ItemStack item = new ItemStack(Material.CROSSBOW, 1);
         ItemMeta meta = item.getItemMeta();
         if(meta != null){
-            meta.displayName(Component.text("Rage Helmet").color(PURPLE));
+            meta.displayName(Component.text("Sonic Crossbow").color(PURPLE));
             item.setItemMeta(meta);
         }
         List<Component> lore = new ArrayList<>();
-        lore.add(Component.text("No pain no gain!").color(GOLD));
+        lore.add(Component.text("Harnesses the power of the Warden").color(GOLD));
+        lore.add(Component.text("Does 16 damage on shoot").color(GOLD));
         lore.add(Component.empty());
-        lore.add(Component.text("Gives + 0.4 damage per heart lost").color(GRAY));
+        lore.add(Component.text("Right-click to use").color(GRAY));
         item.lore(lore);
         return item;
     }
-    @Override
     public Recipe recipe() {
         ItemStack item = create();
-        NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "rage_helmet");
+        NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "sonic_crossbow");
         ShapedRecipe recipe = new ShapedRecipe(key, item);
-        recipe.shape("N N",
-                "BHB",
-                "BBB");
-        recipe.setIngredient('N', Material.NETHERITE_INGOT);
-        recipe.setIngredient('B', Material.BLAZE_ROD);
-        recipe.setIngredient('H', Material.NETHERITE_HELMET);
+        recipe.shape("DSD",
+                "DCD",
+                "GEG");
+        recipe.setIngredient('D', Material.DISC_FRAGMENT_5);
+        recipe.setIngredient('S', Material.SCULK_SHRIEKER);
+        recipe.setIngredient('C', Material.CROSSBOW);
+        recipe.setIngredient('E', Material.ECHO_SHARD);
         //Bukkit.addRecipe(recipe);
         return recipe;
     }

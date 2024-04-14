@@ -94,13 +94,13 @@ public class Attack implements Listener {
             }
             ItemStack helmet = player.getInventory().getHelmet();
             ItemStack rageHelmet = MonoItems.rageHelmet.create();
-            if(MonoItemsIO.equals(helmet.getItemMeta(), rageHelmet.getItemMeta())){
+            if(helmet.getItemMeta().equals(rageHelmet.getItemMeta())){
                 if(debug){
                     getLogger().log(Level.INFO, "Rage Helmet found on " + player.getName() + ".");
                 }
                 double health = player.getHealth();
                 double damage = event.getDamage();
-                double newDamage = damage + (Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue() - health) * 0.5;
+                double newDamage = damage + (Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue() - health) * 0.2;
                 event.setDamage(newDamage);
             } else {
                 // Not the Rage Helmet.

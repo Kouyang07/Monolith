@@ -12,6 +12,8 @@ import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.items.MonoItemsIO;
 
+import java.util.Objects;
+
 public class Death implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
@@ -38,7 +40,7 @@ public class Death implements Listener {
         // Check both hands for the Totem of Safekeeping
         for (ItemStack item : new ItemStack[]{event.getEntity().getInventory().getItemInOffHand(), event.getEntity().getInventory().getItemInMainHand()}) {
             ItemMeta meta = item.getItemMeta();
-            if (MonoItemsIO.equals(MonoItems.totemOfSafekeeping.create().getItemMeta(), meta)) {
+            if (Objects.equals(MonoItems.totemOfSafekeeping.create().getItemMeta(), meta)){
                 totemItem = item;
                 break;
             }

@@ -92,12 +92,12 @@ public class Interaction implements Listener {
                 break;
             }
         }
-        if (!useable(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling)) {
-            event.getPlayer().sendMessage(Component.text("You may not use it yet, its on cooldown").color(Monolith.SUCCESS_COLOR_RED));
-            return;
-        }
 
         if (ingotOfGambling != null) {
+            if (!useable(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling)) {
+                event.getPlayer().sendMessage(Component.text("You may not use it yet, its on cooldown").color(Monolith.SUCCESS_COLOR_RED));
+                return;
+            }
             Random rand = new Random();
             int chance = rand.nextInt(100) + 1;
 

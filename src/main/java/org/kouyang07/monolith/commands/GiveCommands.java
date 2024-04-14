@@ -56,6 +56,10 @@ public class GiveCommands implements CommandExecutor {
                 break;
             case "soldiers_repose":
                 item = MonoItems.soldiersRepose.create();
+                break;
+            case "sonic_crossbow":
+                item = MonoItems.sonicCrossbow.create();
+                break;
             default:
                 sender.sendMessage("Item not recognized.");
                 break;
