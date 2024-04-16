@@ -1,9 +1,13 @@
-package org.kouyang07.monolith.items.combat.weapons;
+package org.kouyang07.monolith.items.combat.misc;
 
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -13,11 +17,17 @@ import org.kouyang07.monolith.items.MonoItemsIO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.kouyang07.monolith.Monolith.*;
 import static org.kouyang07.monolith.Monolith.GRAY;
-
-public class TotemOfSafekeeping extends MonoItemsIO {
+public class TotemOfSafekeeping extends MonoItemsIO implements Listener {
+    @Getter
+    private static final TotemOfSafekeeping instance = new TotemOfSafekeeping();
+    @Getter
+    private static final ItemStack item = instance.create();
+    @Getter
+    private static final Recipe recipe = instance.recipe();
     @Override
     public ItemStack create() {
         ItemStack item = new ItemStack(Material.AMETHYST_SHARD, 1);
@@ -42,7 +52,32 @@ public class TotemOfSafekeeping extends MonoItemsIO {
         recipe.shape(" N ", "NTN", " N ");
         recipe.setIngredient('N', Material.NETHER_STAR);
         recipe.setIngredient('T', Material.TOTEM_OF_UNDYING);
-        //Bukkit.addRecipe(recipe);
         return recipe;
+    }
+
+    public static void register() {
+        Bukkit.addRecipe(recipe);
+    }
+
+    @EventHandler
+    private void onPlayerDeathEvent(PlayerDeathEvent event){
+        ItemStack totemItem = null;
+        // Check both hands for the Totem of Safekeeping
+        for (ItemStack item : new ItemStack[]{event.getEntity().getInventory().getItemInOffHand(), event.getEntity().getInventory().getItemInMainHand()}) {
+            if (isItem(item, TotemOfSafekeeping.getItem())){
+                totemItem = item;
+                break;
+            }
+        }
+
+        // If the Totem of Safekeeping was found, set keep inventory and remove the totem
+        if (totemItem != null) {
+            event.setKeepInventory(true);
+            event.getDrops().clear(); // Optionally clear drops to prevent duplication
+
+            // This line ensures the totem is removed after the event
+            totemItem.setAmount(totemItem.getAmount() - 1);
+            event.getEntity().sendMessage(Component.text("Your Totem of Safekeeping has protected your inventory!").color(Monolith.SUCCESS_COLOR_GREEN));
+        }
     }
 }

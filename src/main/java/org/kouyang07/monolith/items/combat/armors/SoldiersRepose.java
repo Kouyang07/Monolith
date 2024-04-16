@@ -1,15 +1,22 @@
 package org.kouyang07.monolith.items.combat.armors;
 
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItemsIO;
 
@@ -19,7 +26,13 @@ import java.util.UUID;
 
 import static org.kouyang07.monolith.Monolith.*;
 
-public class SoldiersRepose extends MonoItemsIO {
+public class SoldiersRepose extends MonoItemsIO implements Listener {
+    @Getter
+    private static final SoldiersRepose instance = new SoldiersRepose();
+    @Getter
+    private static final ItemStack item = instance.create();
+    @Getter
+    private static final Recipe recipe = instance.recipe();
     @Override
     public ItemStack create() {
         ItemStack item = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
@@ -50,7 +63,27 @@ public class SoldiersRepose extends MonoItemsIO {
         recipe.setIngredient('D', Material.DIAMOND);
         recipe.setIngredient('B', Material.DIAMOND_BLOCK);
         recipe.setIngredient('G', Material.GOLDEN_APPLE);
-        //Bukkit.addRecipe(recipe);
         return recipe;
+    }
+
+    public static void register() {
+        Bukkit.addRecipe(recipe);
+    }
+
+    @EventHandler
+    private void onPlayerToggleSneakEvent(PlayerToggleSneakEvent event){
+        if(event.getPlayer().getInventory().getLeggings() != null) {
+            if (isItem(event.getPlayer().getInventory().getBoots(), SoldiersRepose.getItem()) && !event.getPlayer().isSneaking()) {
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 9, false, false, true));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false, true));
+            } else {
+                event.getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
+                event.getPlayer().removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                event.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+                event.getPlayer().removePotionEffect(PotionEffectType.WEAKNESS);
+            }
+        }
     }
 }

@@ -1,24 +1,19 @@
-package org.kouyang07.monolith.listener.players;
+package org.kouyang07.monolith.items;
 
-import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import lombok.Data;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.GUI;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.MonoItemsIO;
-import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,25 +25,53 @@ import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getPluginsFolder;
 import static org.kouyang07.monolith.Monolith.debug;
 import static org.kouyang07.monolith.Monolith.playerAttributes;
-import static org.kouyang07.monolith.items.MonoItems.golemChestplate;
 
-public class Inventory implements Listener {
+@Data
+public class CustomAttributes implements Listener {
+
+    int extraDamage;
+    int extraDefense;
+    int extraSpeed;
+    public CustomAttributes(int extraDamage, int extraDefense, int extraSpeed) {
+        this.extraDamage = extraDamage;
+        this.extraDefense = extraDefense;
+        this.extraSpeed = extraSpeed;
+    }
+
+    public CustomAttributes(){}
+
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
-        skillTree(event);
+    private void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player) {
+            double originalDamage = event.getDamage();
+            double additionDamage = Monolith.playerAttributes.get(event.getDamager().getUniqueId()).getExtraDamage();
+            event.setDamage(originalDamage + additionDamage);
+        } else if (event.getEntity() instanceof Player) {
+            double originalDamage = event.getDamage();
+            double defense = Monolith.playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense();
+            event.setDamage(originalDamage - (defense * 5));
+        }
     }
 
     @EventHandler
-    public void onArmorChange(PlayerArmorChangeEvent event) {
-        armorChange(event);
+    private void onPlayerMove(PlayerMoveEvent event){ //TODO: Need optimizations
+        Player player = event.getPlayer();
+        double additionalSpeed = Monolith.playerAttributes.get(player.getUniqueId()).getExtraSpeed();
+        // Increase speed attribute
+        if (player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
+            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.1 + additionalSpeed/100); // Normal is 0.1
+        }
     }
 
     @EventHandler
-    public void onHold(PlayerItemHeldEvent event) {
-        sonicCrossbow(event);
+    private void onPlayerJoinEvent(PlayerJoinEvent event) {
+        if(!Monolith.playerAttributes.containsKey(event.getPlayer().getUniqueId())){
+            Monolith.playerAttributes.put(event.getPlayer().getUniqueId(), new CustomAttributes(0, 0, 0));
+        }
     }
 
-    private void skillTree(InventoryClickEvent event){
+    @EventHandler
+    private void onInventoryClickEvent(InventoryClickEvent event){
         if (event.getInventory() == GUI.skillTree){
             event.setCancelled(true);
 
@@ -98,6 +121,7 @@ public class Inventory implements Listener {
             }
         }
     }
+
     private boolean pay(Player player, int currentValue){
         if(player.getGameMode().equals(GameMode.CREATIVE)){
             return true;
@@ -108,7 +132,7 @@ public class Inventory implements Listener {
                     player.setLevel(player.getLevel() - 10);
                     return true;
                 }else{
-                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 10 and you have " + player.getLevel()).color(Monolith.SUCCESS_COLOR_RED));
+                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 10 and you have " + player.getLevel()).color(Monolith.FAIL_COLOR_RED));
                     return false;
                 }
             case 1:
@@ -116,7 +140,7 @@ public class Inventory implements Listener {
                     player.setLevel(player.getLevel() - 25);
                     return true;
                 }else{
-                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 25 and you have " + player.getLevel()).color(Monolith.SUCCESS_COLOR_RED));
+                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 25 and you have " + player.getLevel()).color(Monolith.FAIL_COLOR_RED));
                     return false;
                 }
             case 2:
@@ -124,7 +148,7 @@ public class Inventory implements Listener {
                     player.setLevel(player.getLevel() - 50);
                     return true;
                 }else{
-                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 50 and you have " + player.getLevel()).color(Monolith.SUCCESS_COLOR_RED));
+                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 50 and you have " + player.getLevel()).color(Monolith.FAIL_COLOR_RED));
                     return false;
                 }
             case 3:
@@ -132,14 +156,15 @@ public class Inventory implements Listener {
                     player.setLevel(player.getLevel() - 100);
                     return true;
                 }else{
-                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 100 and you have " + player.getLevel()).color(Monolith.SUCCESS_COLOR_RED));
+                    player.sendMessage(Component.text("You do not have enough levels to purchase this upgrade! Needs 100 and you have " + player.getLevel()).color(Monolith.FAIL_COLOR_RED));
                     return false;
                 }
             default:
-                    player.sendMessage(Component.text("You've reached the limit").color(Monolith.SUCCESS_COLOR_GREEN));
+                player.sendMessage(Component.text("You've reached the limit").color(Monolith.SUCCESS_COLOR_GREEN));
                 return false;
         }
     }
+
     public void saveAttributes() {
         // Correct the file path
         File dataFile = new File(getPluginsFolder(), "Monolith/playerAttributes.txt");
@@ -176,52 +201,4 @@ public class Inventory implements Listener {
             e.printStackTrace();
         }
     }
-
-    private void armorChange(PlayerArmorChangeEvent event){
-        if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.CHEST) {
-            if (event.getNewItem().getType() == Material.IRON_CHESTPLATE) {
-                if (event.getNewItem().getItemMeta().equals(golemChestplate.create().getItemMeta())) {
-                    applyGolemEffects(event.getPlayer());
-                }
-            } else {
-                removeGolemEffects(event.getPlayer());
-            }
-        }else if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.FEET){
-            if(event.getNewItem().getType() == Material.LEATHER_BOOTS && event.getNewItem().getItemMeta().equals(MonoItems.speedBoots.create().getItemMeta())){
-                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0, false, false, true));
-            }else{
-                event.getPlayer().removePotionEffect(PotionEffectType.SPEED);
-            }
-        }
-    }
-
-    private void applyGolemEffects(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 0, false, false, true));
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
-    }
-
-    private void removeGolemEffects(Player player) {
-        player.removePotionEffect(PotionEffectType.SLOW);
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
-    }
-
-    private void sonicCrossbow(PlayerItemHeldEvent event){
-        Player player = event.getPlayer();
-        ItemStack sonicCrossBow = null;
-        for (ItemStack item : new ItemStack[]{player.getInventory().getItemInOffHand(), player.getInventory().getItemInMainHand()}) {
-            ItemMeta meta = item.getItemMeta();
-            if (meta != null && MonoItems.sonicCrossbow.create().getItemMeta().equals(meta)) {
-                sonicCrossBow = item;
-                break;
-            }
-        }
-        if(sonicCrossBow == null) return;
-        if (sonicCrossBow.equals(MonoItems.sonicCrossbow.create().getItemMeta())) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, -1, 0, true, true));
-            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, -1, 19, true, true));
-
-        } else{
-                player.removePotionEffect(PotionEffectType.SPEED);
-                player.removePotionEffect(PotionEffectType.WEAKNESS);}
-        }
-    }
+}

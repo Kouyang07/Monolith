@@ -5,7 +5,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
+import org.kouyang07.monolith.items.combat.armors.RageHelmet;
+import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
+import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
+import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
+import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.items.combat.weapons.*;
 
 public class GiveCommands implements CommandExecutor {
 
@@ -28,37 +35,37 @@ public class GiveCommands implements CommandExecutor {
         // Determine which item to give based on the first argument
         switch (args[0].toLowerCase()) {
             case "totem_of_safekeeping":
-                item = MonoItems.totemOfSafekeeping.create();
+                item = TotemOfSafekeeping.getItem();
                 break;
             case "ingot_of_gambling":
-                item = MonoItems.ingotOfGambling.create();
+                item = IngotOfGambling.getItem();
                 break;
             case "golem_chestplate":
-                item = MonoItems.golemChestplate.create();
+                item = GolemChestplate.getItem();
                 break;
             case "speed_boots":
-                item = MonoItems.speedBoots.create();
+                item = SpeedBoots.getItem();
                 break;
             case "sword_of_greed":
-                item = MonoItems.swordOfGreed.create();
+                item = SwordOfGreed.getItem();
                 break;
             case "rage_helmet":
-                item = MonoItems.rageHelmet.create();
+                item = RageHelmet.getItem();
                 break;
             case "claymore":
-                item = MonoItems.claymore.create();
+                item = Claymore.getItem();
                 break;
             case "blood_sacrifice":
-                item = MonoItems.bloodSacrifice.create();
+                item = BloodSacrifice.getItem();
                 break;
             case "death_count":
-                item = MonoItems.deathCount.create();
+                item = DeathCount.getItem();
                 break;
             case "soldiers_repose":
-                item = MonoItems.soldiersRepose.create();
+                item = SoldiersRepose.getItem();
                 break;
             case "sonic_crossbow":
-                item = MonoItems.sonicCrossbow.create();
+                item = SonicCrossbow.getItem();
                 break;
             default:
                 sender.sendMessage("Item not recognized.");

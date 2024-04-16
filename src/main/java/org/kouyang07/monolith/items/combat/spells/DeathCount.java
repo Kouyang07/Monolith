@@ -1,12 +1,19 @@
 package org.kouyang07.monolith.items.combat.spells;
 
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItemsIO;
 
@@ -17,8 +24,14 @@ import static net.kyori.adventure.text.format.NamedTextColor.RED;
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.GOLD;
 import static org.kouyang07.monolith.Monolith.GRAY;
-
-public class DeathCount extends MonoItemsIO {
+@Getter
+public class DeathCount extends MonoItemsIO implements Listener {
+    @Getter
+    private static final DeathCount instance = new DeathCount();
+    @Getter
+    private static final ItemStack item = instance.create();
+    @Getter
+    private static final Recipe recipe = instance.recipe();
     @Override
     public ItemStack create() {
         ItemStack item = new ItemStack(Material.ENCHANTED_BOOK, 1);
@@ -50,7 +63,37 @@ public class DeathCount extends MonoItemsIO {
         recipe.setIngredient('B', Material.BELL);
         recipe.setIngredient('E', Material.BOOK);
         recipe.setIngredient('A', Material.SOUL_SAND);
-        //Bukkit.addRecipe(recipe);
         return recipe;
+    }
+
+    public static void register() {
+        Bukkit.addRecipe(recipe);
+    }
+
+    @EventHandler
+    private void onPlayerInteractEvent(PlayerInteractEvent event) {
+        ItemStack deathCount = null;
+        // Check both hands for the Ingot of Gambling
+        for (ItemStack item : new ItemStack[]{event.getPlayer().getInventory().getItemInOffHand(), event.getPlayer().getInventory().getItemInMainHand()}) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && isItem(item, DeathCount.item)) {
+                deathCount = item;
+                break;
+            }
+        }
+        if (deathCount != null) {
+            if (event.getPlayer().getHealth() > 17) {
+                event.getPlayer().setHealth(event.getPlayer().getHealth() - 17);
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 19));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 400, 9));
+                getPlugin(Monolith.class).getServer().getScheduler().runTaskLater(getPlugin(Monolith.class), () -> {
+                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 300, 19));
+                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 300, 1));
+                }, 400L); // 60 ticks = 3 seconds
+                event.getPlayer().sendMessage(Component.text("The Death Count has granted you power").color(Monolith.SUCCESS_COLOR_GREEN));
+            } else {
+                event.getPlayer().sendMessage(Component.text("You do not have enough health to use this item").color(Monolith.FAIL_COLOR_RED));
+            }
+        }
     }
 }

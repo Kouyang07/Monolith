@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jetbrains.annotations.NotNull;
 import org.kouyang07.monolith.Monolith;
 
 public class SpawnCommands implements CommandExecutor {
@@ -44,7 +42,7 @@ public class SpawnCommands implements CommandExecutor {
         zombie.setCanBreakDoors(false);
         zombie.setCanPickupItems(false);
 
-        zombie.customName(Component.text("Elite Zombie").color(Monolith.SUCCESS_COLOR_RED));
+        zombie.customName(Component.text("Elite Zombie").color(Monolith.FAIL_COLOR_RED));
         zombie.setCustomNameVisible(true);
 
         // Set equipment
@@ -78,7 +76,7 @@ public class SpawnCommands implements CommandExecutor {
         skeleton.setShouldBurnInDay(false);
         skeleton.setCanPickupItems(false);
 
-        skeleton.customName(Component.text("Elite Skeleton").color(Monolith.SUCCESS_COLOR_RED));
+        skeleton.customName(Component.text("Elite Skeleton").color(Monolith.FAIL_COLOR_RED));
         skeleton.setCustomNameVisible(true);
 
         // Set equipment

@@ -1,22 +1,43 @@
 package org.kouyang07.monolith.items.combat.weapons;
 
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.cooldown.CoolDownItems;
+import org.kouyang07.monolith.items.cooldown.Cooldown;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+import java.util.logging.Level;
 
+import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.*;
+import static org.kouyang07.monolith.items.cooldown.Cooldown.addCoolDown;
+import static org.kouyang07.monolith.items.cooldown.Cooldown.useable;
 
-public class IngotOfGambling extends MonoItemsIO{
+@Getter
+public class IngotOfGambling extends MonoItemsIO implements Listener {
+    @Getter
+    private static final IngotOfGambling instance = new IngotOfGambling();
+    @Getter
+    private static final ItemStack item = instance.create();
+    @Getter
+    private static final Recipe recipe = instance.recipe();
     public ItemStack create() {
         ItemStack item = new ItemStack(Material.GOLD_INGOT, 1);
         ItemMeta meta = item.getItemMeta();
@@ -40,7 +61,50 @@ public class IngotOfGambling extends MonoItemsIO{
                 "GDG");
         recipe.setIngredient('G', Material.GOLD_BLOCK);
         recipe.setIngredient('D', Material.DIAMOND);
-        //Bukkit.addRecipe(recipe);
         return recipe;
+    }
+
+    public static void register() {
+        Bukkit.addRecipe(recipe);
+    }
+
+    @EventHandler
+    private void onPlayerInteractEvent(PlayerInteractEvent event) {
+        ItemStack ingotOfGambling = null;
+        // Check both hands for the Ingot of Gambling
+        for (ItemStack item : new ItemStack[]{event.getPlayer().getInventory().getItemInOffHand(), event.getPlayer().getInventory().getItemInMainHand()}) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && IngotOfGambling.isItem(IngotOfGambling.getItem(), item)) {
+                ingotOfGambling = item;
+                break;
+            }
+        }
+
+        if (ingotOfGambling != null) {
+            if (!useable(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling)) {
+                event.getPlayer().sendMessage(Component.text("You may not use it yet, its on cooldown").color(Monolith.FAIL_COLOR_RED));
+                return;
+            }
+            Random rand = new Random();
+            int chance = rand.nextInt(100) + 1;
+
+            if (chance <= 15) {
+                // 15% chance to get Weakness 1
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 0));
+                addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+            } else if (chance <= 50) {
+                // 35% chance to get Weakness 2
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 1));
+                addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+            } else if (chance <= 65) {
+                // 15% chance to get Strength 1
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 0));
+                addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+            } else {
+                // 35% chance to get Strength 2
+                addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 1));
+            }
+        }
     }
 }

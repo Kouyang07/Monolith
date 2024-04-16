@@ -1,25 +1,40 @@
 package org.kouyang07.monolith.items.combat.armors;
 
+import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItemsIO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.kouyang07.monolith.Monolith.*;
 
-public class GolemChestplate extends MonoItemsIO {
+public class GolemChestplate extends MonoItemsIO implements Listener {
+    @Getter
+    private static final GolemChestplate instance = new GolemChestplate();
+    @Getter
+    private static final ItemStack item = instance.create();
+    @Getter
+    private static final Recipe recipe = instance.recipe();
     @Override
     public ItemStack create() {
         ItemStack item = new ItemStack(Material.IRON_CHESTPLATE, 1);
@@ -45,7 +60,30 @@ public class GolemChestplate extends MonoItemsIO {
                 "III");
         recipe.setIngredient('I', Material.IRON_BLOCK);
         recipe.setIngredient('G', Material.GOLDEN_APPLE);
-        //Bukkit.addRecipe(recipe);
         return recipe;
+    }
+    public static void register() {
+        Bukkit.addRecipe(recipe);
+    }
+
+    @EventHandler
+    private void onPlayerArmorChangeEvent(PlayerArmorChangeEvent event){
+        if(event.getSlotType() == PlayerArmorChangeEvent.SlotType.CHEST) {
+            if (isItem(event.getNewItem(), item)) {
+                applyGolemEffects(event.getPlayer());
+            } else {
+                removeGolemEffects(event.getPlayer());
+            }
+        }
+    }
+
+    private void applyGolemEffects(Player player) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 0, false, false, true));
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
+    }
+
+    private void removeGolemEffects(Player player) {
+        player.removePotionEffect(PotionEffectType.SLOW);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0);
     }
 }

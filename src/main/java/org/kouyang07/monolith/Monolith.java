@@ -1,16 +1,23 @@
 package org.kouyang07.monolith;
 
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.C;
 import org.kouyang07.monolith.commands.GiveCommands;
 import org.kouyang07.monolith.commands.LSCommands;
 import org.kouyang07.monolith.commands.StatCommands;
-import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.cooldown.Cooldown;
-import org.kouyang07.monolith.items.MonoItemsIO;
-import org.kouyang07.monolith.listener.MobListener;
-import org.kouyang07.monolith.listener.players.*;
+import org.kouyang07.monolith.items.CustomAttributes;
+import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
+import org.kouyang07.monolith.items.combat.armors.RageHelmet;
+import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
+import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
+import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
+import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.items.combat.weapons.*;
+import org.kouyang07.monolith.listener.DamageDisplayerListener;
+import org.kouyang07.monolith.listener.LifeStealListener;
+import org.kouyang07.monolith.listener.MobRetargeterListener;
 import org.kouyang07.monolith.commands.SpawnCommands;
 
 import java.io.File;
@@ -24,27 +31,23 @@ public final class Monolith extends JavaPlugin {
 
     public static boolean debug = true;
 
-    public static ArrayList<MonoItemsIO> monoItems = new ArrayList<>();
-
     public static TextColor SUCCESS_COLOR_GREEN = TextColor.color(0, 255, 0);
-    public static TextColor SUCCESS_COLOR_RED = TextColor.color(255, 0, 0);
+    public static TextColor FAIL_COLOR_RED = TextColor.color(255, 0, 0);
     public static TextColor GRAY = TextColor.color(170, 170, 170);
     public static TextColor GOLD = TextColor.color(255, 215, 0);
     public static TextColor PURPLE = TextColor.color(170, 0, 170);
-
-    public static Map<UUID, ArrayList<Cooldown>> cooldownList = new HashMap<>();
     public static Map<UUID, CustomAttributes> playerAttributes = new HashMap<>();
 
     @Override
     public void onEnable() {
-
-        initalizeItems();
 
         initalizeAttributes();
 
         registerListeners();
 
         registerCommands();
+
+        initializeItems();
 
         getLogger().log(Level.INFO, "Monolith has been enabled");
     }
@@ -54,36 +57,20 @@ public final class Monolith extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public void initalizeItems(){
-        monoItems.add(MonoItems.ingotOfGambling);
-        monoItems.add(MonoItems.totemOfSafekeeping);
-        monoItems.add(MonoItems.swordOfGreed);
-        monoItems.add(MonoItems.claymore);
-        monoItems.add(MonoItems.sonicCrossbow);
-
-        monoItems.add(MonoItems.speedBoots);
-        monoItems.add(MonoItems.golemChestplate);
-        monoItems.add(MonoItems.rageHelmet);
-        monoItems.add(MonoItems.soldiersRepose);
-
-        monoItems.add(MonoItems.bloodSacrifice);
-        monoItems.add(MonoItems.deathCount);
-
-        for(MonoItemsIO items : monoItems){
-            getLogger().log(Level.INFO, "Registering " + items.getClass().getSimpleName());
-            Bukkit.addRecipe(items.recipe());
-        }
-    }
-
     public void registerListeners(){
-        getServer().getPluginManager().registerEvents(new Death(), this);
-        getServer().getPluginManager().registerEvents(new MobListener(), this);
-        getServer().getPluginManager().registerEvents(new Interaction(), this);
-        getServer().getPluginManager().registerEvents(new Inventory(), this);
-        getServer().getPluginManager().registerEvents(new Attack(), this);
-        getServer().getPluginManager().registerEvents(new Move(), this);
-        getServer().getPluginManager().registerEvents(new Join(), this);
-        getServer().getPluginManager().registerEvents(new Projectile(), this);
+        getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
+        getServer().getPluginManager().registerEvents(new MobRetargeterListener(), this);
+        getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
+
+        getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
+        getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
+        getServer().getPluginManager().registerEvents(Claymore.getInstance(), this);
+        getServer().getPluginManager().registerEvents(SonicCrossbow.getInstance(), this);
+        getServer().getPluginManager().registerEvents(TotemOfSafekeeping.getInstance(), this);
+        getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
+        getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
+        getServer().getPluginManager().registerEvents(RageHelmet.getInstance(), this);
+        getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
     }
 
     public void registerCommands(){
@@ -91,6 +78,24 @@ public final class Monolith extends JavaPlugin {
         Objects.requireNonNull(getCommand("monocreate")).setExecutor(new GiveCommands());
         Objects.requireNonNull(getCommand("monospawn")).setExecutor(new SpawnCommands());
         Objects.requireNonNull(getCommand("skills")).setExecutor(new StatCommands());
+    }
+
+    public void initializeItems(){
+
+        GolemChestplate.register();
+        RageHelmet.register();
+        SpeedBoots.register();
+        SoldiersRepose.register();
+
+        BloodSacrifice.register();
+        DeathCount.register();
+
+        Claymore.register();
+        IngotOfGambling.register();
+        SonicCrossbow.register();
+        SwordOfGreed.register();
+
+        TotemOfSafekeeping.register();
     }
 
     public void initalizeAttributes(){

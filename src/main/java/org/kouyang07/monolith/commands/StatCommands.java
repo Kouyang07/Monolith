@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.kouyang07.monolith.GUI;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.listener.players.CustomAttributes;
+import org.kouyang07.monolith.items.CustomAttributes;
 
 public class StatCommands implements CommandExecutor{
 
@@ -25,6 +25,8 @@ public class StatCommands implements CommandExecutor{
                         }
                         return true;
                     }
+                }else{
+                    player.sendMessage(Component.text("You must be in creative to reset").color(Monolith.FAIL_COLOR_RED));
                 }
             }else{
                 player.sendMessage(Component.text("Opening skill tree...").color(Monolith.SUCCESS_COLOR_GREEN));
