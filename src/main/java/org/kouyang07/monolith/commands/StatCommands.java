@@ -1,7 +1,9 @@
 package org.kouyang07.monolith.commands;
 
+import java.util.Objects;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +26,8 @@ public class StatCommands implements CommandExecutor {
         if (strings[0].equalsIgnoreCase("reset")) {
           if (player.getGameMode().equals(GameMode.CREATIVE)) {
             player.sendMessage(Component.text("Stats reset.").color(Monolith.SUCCESS_COLOR_GREEN));
+            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED))
+                .setBaseValue(0.1); // Normal is 0.1
             if (Monolith.playerAttributes.containsKey(player.getUniqueId())) {
               Monolith.playerAttributes.put(player.getUniqueId(), new CustomAttributes(0, 0, 0));
             }

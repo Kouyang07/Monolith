@@ -20,7 +20,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.kouyang07.monolith.GUI;
 import org.kouyang07.monolith.Monolith;
@@ -52,17 +51,6 @@ public class CustomAttributes implements Listener {
       double defense =
           Monolith.playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense();
       event.setDamage(originalDamage - (defense * 5));
-    }
-  }
-
-  @EventHandler
-  private void onPlayerMove(PlayerMoveEvent event) { // TODO: Need optimizations
-    Player player = event.getPlayer();
-    double additionalSpeed = Monolith.playerAttributes.get(player.getUniqueId()).getExtraSpeed();
-    // Increase speed attribute
-    if (player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
-      Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED))
-          .setBaseValue(0.1 + additionalSpeed / 100); // Normal is 0.1
     }
   }
 
@@ -144,6 +132,13 @@ public class CustomAttributes implements Listener {
               getLogger()
                   .log(
                       Level.INFO, "Player " + player.getName() + " has increased their speed by 1");
+            }
+            double additionalSpeed =
+                Monolith.playerAttributes.get(player.getUniqueId()).getExtraSpeed();
+            // Increase speed attribute
+            if (player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
+              Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED))
+                  .setBaseValue(0.1 + additionalSpeed / 100); // Normal is 0.1
             }
           }
           break;

@@ -1,6 +1,6 @@
 package org.kouyang07.monolith.cis.combat.weapons;
 
-import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.*;
 import static org.kouyang07.monolith.Monolith.*;
 
 import java.util.ArrayList;
@@ -101,6 +101,7 @@ public class SonicCrossbow extends MonoItemsIO implements Listener {
         player.getInventory().getItem(event.getPreviousSlot()), SonicCrossbow.getItem())) {
       player.removePotionEffect(PotionEffectType.SPEED);
       player.removePotionEffect(PotionEffectType.WEAKNESS);
+      event.getPlayer().getInventory().removeItem(new ItemStack(Material.ARROW, 1));
     }
   }
 
