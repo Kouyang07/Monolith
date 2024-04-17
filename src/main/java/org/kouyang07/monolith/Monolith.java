@@ -1,119 +1,122 @@
 package org.kouyang07.monolith;
 
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.units.qual.C;
-import org.kouyang07.monolith.commands.GiveCommands;
-import org.kouyang07.monolith.commands.LSCommands;
-import org.kouyang07.monolith.commands.StatCommands;
-import org.kouyang07.monolith.items.CustomAttributes;
-import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
-import org.kouyang07.monolith.items.combat.armors.RageHelmet;
-import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
-import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
-import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
-import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
-import org.kouyang07.monolith.items.combat.spells.DeathCount;
-import org.kouyang07.monolith.items.combat.weapons.*;
-import org.kouyang07.monolith.listener.DamageDisplayerListener;
-import org.kouyang07.monolith.listener.LifeStealListener;
-import org.kouyang07.monolith.listener.MobRetargeterListener;
-import org.kouyang07.monolith.commands.SpawnCommands;
+import static org.bukkit.Bukkit.getPluginsFolder;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
-
-import static org.bukkit.Bukkit.getPluginsFolder;
+import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.kouyang07.monolith.cis.CustomAttributes;
+import org.kouyang07.monolith.cis.combat.armors.GolemChestplate;
+import org.kouyang07.monolith.cis.combat.armors.RageHelmet;
+import org.kouyang07.monolith.cis.combat.armors.SoldiersRepose;
+import org.kouyang07.monolith.cis.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.cis.combat.misc.TotemOfSafekeeping;
+import org.kouyang07.monolith.cis.combat.spells.BloodSacrifice;
+import org.kouyang07.monolith.cis.combat.spells.DeathCount;
+import org.kouyang07.monolith.cis.combat.weapons.*;
+import org.kouyang07.monolith.commands.GiveCommands;
+import org.kouyang07.monolith.commands.LSCommands;
+import org.kouyang07.monolith.commands.SpawnCommands;
+import org.kouyang07.monolith.commands.StatCommands;
+import org.kouyang07.monolith.listener.DamageDisplayerListener;
+import org.kouyang07.monolith.listener.LifeStealListener;
+import org.kouyang07.monolith.listener.MobRetargeterListener;
 
 public final class Monolith extends JavaPlugin {
 
-    public static boolean debug = true;
+  public static boolean debug = true;
 
-    public static TextColor SUCCESS_COLOR_GREEN = TextColor.color(0, 255, 0);
-    public static TextColor FAIL_COLOR_RED = TextColor.color(255, 0, 0);
-    public static TextColor GRAY = TextColor.color(170, 170, 170);
-    public static TextColor GOLD = TextColor.color(255, 215, 0);
-    public static TextColor PURPLE = TextColor.color(170, 0, 170);
-    public static Map<UUID, CustomAttributes> playerAttributes = new HashMap<>();
+  public static TextColor SUCCESS_COLOR_GREEN = TextColor.color(0, 255, 0);
+  public static TextColor FAIL_COLOR_RED = TextColor.color(255, 0, 0);
+  public static TextColor GRAY = TextColor.color(170, 170, 170);
+  public static TextColor GOLD = TextColor.color(255, 215, 0);
+  public static TextColor PURPLE = TextColor.color(170, 0, 170);
+  public static Map<UUID, CustomAttributes> playerAttributes = new HashMap<>();
 
-    @Override
-    public void onEnable() {
+  @Override
+  public void onEnable() {
 
-        initalizeAttributes();
+    initalizeAttributes();
 
-        registerListeners();
+    registerListeners();
 
-        registerCommands();
+    registerCommands();
 
-        initializeItems();
+    initializeItems();
 
-        getLogger().log(Level.INFO, "Monolith has been enabled");
-    }
+    getLogger().log(Level.INFO, "Monolith has been enabled");
+  }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
+  @Override
+  public void onDisable() {
+    // Plugin shutdown logic
+  }
 
-    public void registerListeners(){
-        getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
-        getServer().getPluginManager().registerEvents(new MobRetargeterListener(), this);
-        getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
+  public void registerListeners() {
+    getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
+    getServer().getPluginManager().registerEvents(new MobRetargeterListener(), this);
+    getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
 
-        getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
-        getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
-        getServer().getPluginManager().registerEvents(Claymore.getInstance(), this);
-        getServer().getPluginManager().registerEvents(SonicCrossbow.getInstance(), this);
-        getServer().getPluginManager().registerEvents(TotemOfSafekeeping.getInstance(), this);
-        getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
-        getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
-        getServer().getPluginManager().registerEvents(RageHelmet.getInstance(), this);
-        getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
-    }
+    getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
+    getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
+    getServer().getPluginManager().registerEvents(Claymore.getInstance(), this);
+    getServer().getPluginManager().registerEvents(SonicCrossbow.getInstance(), this);
+    getServer().getPluginManager().registerEvents(TotemOfSafekeeping.getInstance(), this);
+    getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
+    getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
+    getServer().getPluginManager().registerEvents(RageHelmet.getInstance(), this);
+    getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
+  }
 
-    public void registerCommands(){
-        Objects.requireNonNull(getCommand("ls")).setExecutor(new LSCommands());
-        Objects.requireNonNull(getCommand("monocreate")).setExecutor(new GiveCommands());
-        Objects.requireNonNull(getCommand("monospawn")).setExecutor(new SpawnCommands());
-        Objects.requireNonNull(getCommand("skills")).setExecutor(new StatCommands());
-    }
+  public void registerCommands() {
+    Objects.requireNonNull(getCommand("ls")).setExecutor(new LSCommands());
+    Objects.requireNonNull(getCommand("monocreate")).setExecutor(new GiveCommands());
+    Objects.requireNonNull(getCommand("monospawn")).setExecutor(new SpawnCommands());
+    Objects.requireNonNull(getCommand("skills")).setExecutor(new StatCommands());
+  }
 
-    public void initializeItems(){
+  public void initializeItems() {
 
-        GolemChestplate.register();
-        RageHelmet.register();
-        SpeedBoots.register();
-        SoldiersRepose.register();
+    GolemChestplate.register();
+    RageHelmet.register();
+    SpeedBoots.register();
+    SoldiersRepose.register();
 
-        BloodSacrifice.register();
-        DeathCount.register();
+    BloodSacrifice.register();
+    DeathCount.register();
 
-        Claymore.register();
-        IngotOfGambling.register();
-        SonicCrossbow.register();
-        SwordOfGreed.register();
+    Claymore.register();
+    IngotOfGambling.register();
+    SonicCrossbow.register();
+    SwordOfGreed.register();
 
-        TotemOfSafekeeping.register();
-    }
+    TotemOfSafekeeping.register();
+  }
 
-    public void initalizeAttributes(){
-        File file = new File(getPluginsFolder(), "Monolith/playerAttributes.txt");
-        if(!file.exists()){
-            getLogger().log(Level.INFO, "No attribute data found");
-        }else{
-            try {
-                Scanner scanner = new Scanner(file);
-                while(scanner.hasNextLine()){
-                    String[] data = scanner.nextLine().split(":");
-                    UUID uuid = UUID.fromString(data[0]);
-                    String[] attributes = data[1].split(",");
-                    playerAttributes.put(uuid, new CustomAttributes(Integer.parseInt(attributes[0]), Integer.parseInt(attributes[1]), Integer.parseInt(attributes[2])));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+  public void initalizeAttributes() {
+    File file = new File(getPluginsFolder(), "Monolith/playerAttributes.txt");
+    if (!file.exists()) {
+      getLogger().log(Level.INFO, "No attribute data found");
+    } else {
+      try {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+          String[] data = scanner.nextLine().split(":");
+          UUID uuid = UUID.fromString(data[0]);
+          String[] attributes = data[1].split(",");
+          playerAttributes.put(
+              uuid,
+              new CustomAttributes(
+                  Integer.parseInt(attributes[0]),
+                  Integer.parseInt(attributes[1]),
+                  Integer.parseInt(attributes[2])));
         }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+  }
 }

@@ -9,12 +9,13 @@ import org.bukkit.event.entity.EntityTargetEvent;
 
 public class MobRetargeterListener implements Listener {
 
-    @EventHandler
-    public void onEntityTarget(EntityTargetEvent event) {
-        if (event.getEntity() instanceof Mob) {
-            if (!(event.getTarget() instanceof Player) || ((Player) event.getTarget()).getGameMode() == GameMode.CREATIVE){
-                event.setCancelled(true);
-            }
-        }
+  @EventHandler
+  public void onEntityTarget(EntityTargetEvent event) {
+    if (event.getEntity() instanceof Mob) {
+      if (!(event.getTarget() instanceof Player)
+          || ((Player) event.getTarget()).getGameMode() == GameMode.CREATIVE) {
+        event.setCancelled(true);
+      }
     }
+  }
 }
