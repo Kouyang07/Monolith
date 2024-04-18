@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.armors;
+package org.kouyang07.monolith.items.combat.armors;
 
 import static org.kouyang07.monolith.Monolith.*;
 
@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class GolemChestplate extends MonoItemsIO implements Listener {
   @Getter private static final GolemChestplate instance = new GolemChestplate();

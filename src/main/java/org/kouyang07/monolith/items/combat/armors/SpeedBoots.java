@@ -1,10 +1,12 @@
-package org.kouyang07.monolith.cis.combat.armors;
+package org.kouyang07.monolith.items.combat.armors;
 
+import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.*;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -19,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class SpeedBoots extends MonoItemsIO implements Listener {
   @Getter private static final SpeedBoots instance = new SpeedBoots();
@@ -61,6 +63,7 @@ public class SpeedBoots extends MonoItemsIO implements Listener {
   private void onArmorChange(PlayerArmorChangeEvent event) {
     if (event.getSlotType() == PlayerArmorChangeEvent.SlotType.FEET) {
       if (isItem(event.getNewItem(), SpeedBoots.getItem())) {
+        getLogger().log(Level.INFO, event.getPlayer().getName() + " equipped Speed Boots");
         event
             .getPlayer()
             .addPotionEffect(

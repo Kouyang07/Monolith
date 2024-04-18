@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.weapons;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import static org.bukkit.Bukkit.*;
 import static org.kouyang07.monolith.Monolith.*;
@@ -24,7 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class SonicCrossbow extends MonoItemsIO implements Listener {
   @Getter private static final SonicCrossbow instance = new SonicCrossbow();

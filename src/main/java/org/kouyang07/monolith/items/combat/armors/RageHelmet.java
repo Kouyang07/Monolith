@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.armors;
+package org.kouyang07.monolith.items.combat.armors;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
@@ -23,7 +23,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class RageHelmet extends MonoItemsIO implements Listener {
   @Getter private static final RageHelmet instance = new RageHelmet();
@@ -71,7 +71,7 @@ public class RageHelmet extends MonoItemsIO implements Listener {
       ItemStack helmet = player.getInventory().getHelmet();
       if (isItem(helmet, item)) {
         if (debug) {
-          getLogger().log(Level.INFO, "Rage Helmet found on " + player.getName() + ".");
+          getLogger().log(Level.INFO, "Rage Helmet found on " + player.getName());
         }
         double health = player.getHealth();
         double damage = event.getDamage();

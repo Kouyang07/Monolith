@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.cooldown;
+package org.kouyang07.monolith.mechanics.cooldown;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.debug;

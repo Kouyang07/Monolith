@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.spells;
+package org.kouyang07.monolith.items.combat.spells;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.GOLD;
@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class BloodSacrifice extends MonoItemsIO implements Listener {
   @Getter private static final BloodSacrifice instance = new BloodSacrifice();

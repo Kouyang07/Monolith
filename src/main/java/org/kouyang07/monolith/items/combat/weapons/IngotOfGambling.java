@@ -1,8 +1,8 @@
-package org.kouyang07.monolith.cis.combat.weapons;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import static org.kouyang07.monolith.Monolith.*;
-import static org.kouyang07.monolith.cis.cooldown.Cooldown.addCoolDown;
-import static org.kouyang07.monolith.cis.cooldown.Cooldown.useable;
+import static org.kouyang07.monolith.mechanics.cooldown.Cooldown.addCoolDown;
+import static org.kouyang07.monolith.mechanics.cooldown.Cooldown.useable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
-import org.kouyang07.monolith.cis.cooldown.CoolDownItems;
+import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.mechanics.cooldown.CoolDownItems;
 
 @Getter
 public class IngotOfGambling extends MonoItemsIO implements Listener {

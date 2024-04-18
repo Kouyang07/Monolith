@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.misc;
+package org.kouyang07.monolith.items.combat.misc;
 
 import static org.kouyang07.monolith.Monolith.*;
 import static org.kouyang07.monolith.Monolith.GRAY;
@@ -18,7 +18,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class TotemOfSafekeeping extends MonoItemsIO implements Listener {
   @Getter private static final TotemOfSafekeeping instance = new TotemOfSafekeeping();

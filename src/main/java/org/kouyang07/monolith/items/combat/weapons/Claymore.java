@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.weapons;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import static org.kouyang07.monolith.Monolith.*;
 
@@ -20,7 +20,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class Claymore extends MonoItemsIO implements Listener {
   @Getter private static final Claymore instance = new Claymore();

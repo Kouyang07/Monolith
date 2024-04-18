@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis;
+package org.kouyang07.monolith.mechanics;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getPluginsFolder;

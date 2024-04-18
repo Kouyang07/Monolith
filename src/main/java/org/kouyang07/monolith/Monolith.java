@@ -8,22 +8,22 @@ import java.util.*;
 import java.util.logging.Level;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kouyang07.monolith.cis.CustomAttributes;
-import org.kouyang07.monolith.cis.combat.armors.GolemChestplate;
-import org.kouyang07.monolith.cis.combat.armors.RageHelmet;
-import org.kouyang07.monolith.cis.combat.armors.SoldiersRepose;
-import org.kouyang07.monolith.cis.combat.armors.SpeedBoots;
-import org.kouyang07.monolith.cis.combat.misc.TotemOfSafekeeping;
-import org.kouyang07.monolith.cis.combat.spells.BloodSacrifice;
-import org.kouyang07.monolith.cis.combat.spells.DeathCount;
-import org.kouyang07.monolith.cis.combat.weapons.*;
 import org.kouyang07.monolith.commands.GiveCommands;
 import org.kouyang07.monolith.commands.LSCommands;
 import org.kouyang07.monolith.commands.SpawnCommands;
 import org.kouyang07.monolith.commands.StatCommands;
+import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
+import org.kouyang07.monolith.items.combat.armors.RageHelmet;
+import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
+import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
+import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
+import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.items.combat.weapons.*;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
 import org.kouyang07.monolith.listener.MobRetargeterListener;
+import org.kouyang07.monolith.mechanics.CustomAttributes;
 
 public final class Monolith extends JavaPlugin {
 
@@ -64,10 +64,17 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
     getServer().getPluginManager().registerEvents(Claymore.getInstance(), this);
     getServer().getPluginManager().registerEvents(SonicCrossbow.getInstance(), this);
+
     getServer().getPluginManager().registerEvents(TotemOfSafekeeping.getInstance(), this);
+
     getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
     getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
+
     getServer().getPluginManager().registerEvents(RageHelmet.getInstance(), this);
+    getServer().getPluginManager().registerEvents(GolemChestplate.getInstance(), this);
+    getServer().getPluginManager().registerEvents(SpeedBoots.getInstance(), this);
+    getServer().getPluginManager().registerEvents(SoldiersRepose.getInstance(), this);
+
     getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
   }
 

@@ -1,9 +1,11 @@
-package org.kouyang07.monolith.cis.combat.armors;
+package org.kouyang07.monolith.items.combat.armors;
 
+import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -19,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class SoldiersRepose extends MonoItemsIO implements Listener {
   @Getter private static final SoldiersRepose instance = new SoldiersRepose();
@@ -65,13 +67,18 @@ public class SoldiersRepose extends MonoItemsIO implements Listener {
   @EventHandler
   private void onPlayerToggleSneakEvent(PlayerToggleSneakEvent event) {
     if (event.getPlayer().getInventory().getLeggings() != null) {
-      if (isItem(event.getPlayer().getInventory().getBoots(), SoldiersRepose.getItem())
+      if (isItem(event.getPlayer().getInventory().getLeggings(), SoldiersRepose.getItem())
           && !event.getPlayer().isSneaking()) {
+
+        if (debug) {
+          getLogger().log(Level.INFO, event.getPlayer().getName() + " equipped Soldier's Repose");
+        }
+
         event
             .getPlayer()
             .addPotionEffect(
                 new PotionEffect(
-                    PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0, false, false, true));
+                    PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, false, false, true));
         event
             .getPlayer()
             .addPotionEffect(

@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis.combat.weapons;
+package org.kouyang07.monolith.items.combat.weapons;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.*;
@@ -28,7 +28,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItemsIO;
 
 public class SwordOfGreed extends MonoItemsIO implements Listener {
   @Getter private static final SwordOfGreed instance = new SwordOfGreed();
@@ -79,7 +79,6 @@ public class SwordOfGreed extends MonoItemsIO implements Listener {
     recipe.setIngredient('G', Material.GOLD_BLOCK);
     recipe.setIngredient('D', Material.DIAMOND_BLOCK);
     recipe.setIngredient('S', Material.DIAMOND_SWORD);
-    getLogger().log(Level.INFO, "Sword of Greed recipe added");
     return recipe;
   }
 

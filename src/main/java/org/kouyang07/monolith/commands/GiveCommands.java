@@ -5,14 +5,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.kouyang07.monolith.cis.combat.armors.GolemChestplate;
-import org.kouyang07.monolith.cis.combat.armors.RageHelmet;
-import org.kouyang07.monolith.cis.combat.armors.SoldiersRepose;
-import org.kouyang07.monolith.cis.combat.armors.SpeedBoots;
-import org.kouyang07.monolith.cis.combat.misc.TotemOfSafekeeping;
-import org.kouyang07.monolith.cis.combat.spells.BloodSacrifice;
-import org.kouyang07.monolith.cis.combat.spells.DeathCount;
-import org.kouyang07.monolith.cis.combat.weapons.*;
+import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
+import org.kouyang07.monolith.items.combat.armors.RageHelmet;
+import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
+import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
+import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
+import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.items.combat.weapons.*;
 
 public class GiveCommands implements CommandExecutor {
 

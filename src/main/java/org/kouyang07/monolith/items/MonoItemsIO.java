@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.cis;
+package org.kouyang07.monolith.items;
 
 import java.util.Objects;
 import org.bukkit.inventory.ItemStack;

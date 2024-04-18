@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.kouyang07.monolith.GUI;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.cis.CustomAttributes;
+import org.kouyang07.monolith.mechanics.CustomAttributes;
 
 public class StatCommands implements CommandExecutor {
 
