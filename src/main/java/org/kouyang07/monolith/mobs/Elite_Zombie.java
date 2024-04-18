@@ -6,12 +6,14 @@ import org.bukkit.Location;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 
-public class Elite_Zombie extends MonoMobs {
+public class Elite_Zombie extends MonoMobs implements Listener {
   @Getter private static final Elite_Zombie instance = new Elite_Zombie();
 
   public Elite_Zombie() {

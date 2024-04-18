@@ -9,7 +9,6 @@ commands:
   ls:
     description: Set player health.
     usage: /ls set [player] [health]
-    permission: monolith.command.sethealth
   monocreate:
     description: Gives a custom item to the player.
     usage: /monocreate [itemName]

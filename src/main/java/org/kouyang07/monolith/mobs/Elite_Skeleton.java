@@ -7,12 +7,13 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 
-public class Elite_Skeleton extends MonoMobs {
+public class Elite_Skeleton extends MonoMobs implements Listener {
   @Getter private static final Elite_Skeleton instance = new Elite_Skeleton();
 
   public Elite_Skeleton() {

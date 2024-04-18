@@ -22,7 +22,6 @@ import org.kouyang07.monolith.items.combat.spells.DeathCount;
 import org.kouyang07.monolith.items.combat.weapons.*;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
-import org.kouyang07.monolith.listener.MobRetargeterListener;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
 
 public final class Monolith extends JavaPlugin {
@@ -57,7 +56,6 @@ public final class Monolith extends JavaPlugin {
 
   public void registerListeners() {
     getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
-    getServer().getPluginManager().registerEvents(new MobRetargeterListener(), this);
     getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
 
     getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
@@ -76,6 +74,8 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(SoldiersRepose.getInstance(), this);
 
     getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
+
+
   }
 
   public void registerCommands() {
@@ -86,7 +86,6 @@ public final class Monolith extends JavaPlugin {
   }
 
   public void initializeItems() {
-
     GolemChestplate.register();
     RageHelmet.register();
     SpeedBoots.register();
