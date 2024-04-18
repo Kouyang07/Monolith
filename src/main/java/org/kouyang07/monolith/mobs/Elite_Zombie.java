@@ -1,5 +1,10 @@
 package org.kouyang07.monolith.mobs;
 
+import static org.bukkit.Bukkit.getLogger;
+import static org.kouyang07.monolith.Monolith.debug;
+
+import java.util.Objects;
+import java.util.logging.Level;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -8,10 +13,12 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
+import org.kouyang07.monolith.items.resources.ZombiesHeart;
 
 public class Elite_Zombie extends MonoMobs implements Listener {
   @Getter private static final Elite_Zombie instance = new Elite_Zombie();
@@ -57,5 +64,24 @@ public class Elite_Zombie extends MonoMobs implements Listener {
     // Apply effects
     zombie.addPotionEffect(
         new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2, false, false));
+  }
+
+  @EventHandler
+  private void onEntityDeathEvent(EntityDeathEvent event) {
+    if (event.getEntity().customName() == null) return;
+    if (Objects.equals(
+        event.getEntity().customName(),
+        Component.text("Elite Zombie").color(Monolith.FAIL_COLOR_RED))) {
+      int rng = ((int) (Math.random() * 21));
+      if (rng == 10) {
+        if (debug) {
+          getLogger()
+              .log(
+                  Level.INFO,
+                  "Zombie's heart was dropped at " + event.getEntity().getLocation().toString());
+        }
+        event.getDrops().add(ZombiesHeart.getItem());
+      }
+    }
   }
 }

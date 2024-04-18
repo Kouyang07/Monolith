@@ -19,10 +19,13 @@ import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
 import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
 import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
 import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.items.combat.spells.ZombieWand;
 import org.kouyang07.monolith.items.combat.weapons.*;
+import org.kouyang07.monolith.items.resources.ZombiesHeart;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
+import org.kouyang07.monolith.mobs.Elite_Zombie;
 
 public final class Monolith extends JavaPlugin {
 
@@ -67,6 +70,7 @@ public final class Monolith extends JavaPlugin {
 
     getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
     getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
+    getServer().getPluginManager().registerEvents(ZombieWand.getInstance(), this);
 
     getServer().getPluginManager().registerEvents(RageHelmet.getInstance(), this);
     getServer().getPluginManager().registerEvents(GolemChestplate.getInstance(), this);
@@ -75,7 +79,7 @@ public final class Monolith extends JavaPlugin {
 
     getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
 
-
+    getServer().getPluginManager().registerEvents(Elite_Zombie.getInstance(), this);
   }
 
   public void registerCommands() {
@@ -98,8 +102,11 @@ public final class Monolith extends JavaPlugin {
     IngotOfGambling.register();
     SonicCrossbow.register();
     SwordOfGreed.register();
+    ZombieWand.register();
 
     TotemOfSafekeeping.register();
+
+    ZombiesHeart.register();
   }
 
   public void initalizeAttributes() {

@@ -5,19 +5,14 @@ import static org.kouyang07.monolith.items.MonoItems.items;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
-import org.kouyang07.monolith.items.combat.armors.RageHelmet;
-import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
-import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
-import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
-import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
-import org.kouyang07.monolith.items.combat.spells.DeathCount;
+import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.combat.weapons.*;
 
 public class GiveCommands implements CommandExecutor, TabCompleter {
@@ -36,46 +31,13 @@ public class GiveCommands implements CommandExecutor, TabCompleter {
       return true;
     }
 
-    ItemStack item = null;
+    ItemStack item;
 
-    // Determine which item to give based on the first argument
-    switch (args[0].toLowerCase()) {
-      case "totem_of_safekeeping":
-        item = TotemOfSafekeeping.getItem();
-        break;
-      case "ingot_of_gambling":
-        item = IngotOfGambling.getItem();
-        break;
-      case "golem_chestplate":
-        item = GolemChestplate.getItem();
-        break;
-      case "speed_boots":
-        item = SpeedBoots.getItem();
-        break;
-      case "sword_of_greed":
-        item = SwordOfGreed.getItem();
-        break;
-      case "rage_helmet":
-        item = RageHelmet.getItem();
-        break;
-      case "claymore":
-        item = Claymore.getItem();
-        break;
-      case "blood_sacrifice":
-        item = BloodSacrifice.getItem();
-        break;
-      case "death_count":
-        item = DeathCount.getItem();
-        break;
-      case "soldiers_repose":
-        item = SoldiersRepose.getItem();
-        break;
-      case "sonic_crossbow":
-        item = SonicCrossbow.getItem();
-        break;
-      default:
-        sender.sendMessage("Item not recognized.");
-        break;
+    if (items.containsKey(args[0])) {
+      item = items.get(args[0]).create();
+    } else {
+      sender.sendMessage(Component.text("Item not recognized").color(Monolith.FAIL_COLOR_RED));
+      return true;
     }
 
     // If an item was created, give it to the player
