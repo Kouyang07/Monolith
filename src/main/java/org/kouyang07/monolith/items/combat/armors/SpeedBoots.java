@@ -12,6 +12,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -35,6 +36,7 @@ public class SpeedBoots extends MonoItemsIO implements Listener {
     if (meta != null) {
       meta.displayName(Component.text("Speed Boots").color(PURPLE));
       item.setItemMeta(meta);
+      meta.addEnchant(Enchantment.DURABILITY, 10, true);
     }
     List<Component> lore = new ArrayList<>();
     lore.add(Component.text("Zoooom!").color(GOLD));

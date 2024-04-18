@@ -53,7 +53,7 @@ public class SoldiersRepose extends MonoItemsIO implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "soldiers_repose");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("DBD", "DGD", "D D");
+    recipe.shape("BDB", "DGD", "D D");
     recipe.setIngredient('D', Material.DIAMOND);
     recipe.setIngredient('B', Material.DIAMOND_BLOCK);
     recipe.setIngredient('G', Material.GOLDEN_APPLE);
