@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,6 +37,10 @@ public class GolemChestplate extends MonoItemsIO implements Listener {
     if (meta != null) {
       meta.displayName(Component.text("Golem Chestplate").color(PURPLE));
       item.setItemMeta(meta);
+
+      // Add unbreaking enchantment
+      item.addUnsafeEnchantment(Enchantment.DURABILITY, 5);
+      item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
     }
     List<Component> lore = new ArrayList<>();
     lore.add(Component.text("Makes you immovable like a golem!").color(GOLD));
@@ -50,8 +55,9 @@ public class GolemChestplate extends MonoItemsIO implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "golem_chestplate");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("IGI", "III", "III");
-    recipe.setIngredient('I', Material.IRON_BLOCK);
+    recipe.shape("BGB", "BIB", "BIB");
+    recipe.setIngredient('B', Material.IRON_BLOCK);
+    recipe.setIngredient('I', Material.IRON_INGOT);
     recipe.setIngredient('G', Material.GOLDEN_APPLE);
     return recipe;
   }
