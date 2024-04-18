@@ -18,9 +18,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class TotemOfSafekeeping extends MonoItemsIO implements Listener {
+public class TotemOfSafekeeping extends MonoItems implements Listener {
   @Getter private static final TotemOfSafekeeping instance = new TotemOfSafekeeping();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -51,6 +51,8 @@ public class TotemOfSafekeeping extends MonoItemsIO implements Listener {
     recipe.shape(" N ", "NTN", " N ");
     recipe.setIngredient('N', Material.NETHER_STAR);
     recipe.setIngredient('T', Material.TOTEM_OF_UNDYING);
+
+    items.put("totem_of_safekeeping", this);
     return recipe;
   }
 

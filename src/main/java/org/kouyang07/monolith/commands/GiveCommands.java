@@ -1,8 +1,14 @@
 package org.kouyang07.monolith.commands;
 
+import static org.kouyang07.monolith.items.MonoItems.items;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
@@ -14,7 +20,7 @@ import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
 import org.kouyang07.monolith.items.combat.spells.DeathCount;
 import org.kouyang07.monolith.items.combat.weapons.*;
 
-public class GiveCommands implements CommandExecutor {
+public class GiveCommands implements CommandExecutor, TabCompleter {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -79,5 +85,17 @@ public class GiveCommands implements CommandExecutor {
     }
 
     return true;
+  }
+
+  @Override
+  public List<String> onTabComplete(
+      CommandSender sender, Command command, String alias, String[] args) {
+    if (args.length == 1) {
+      return items.keySet().stream()
+          .filter(name -> name.startsWith(args[0].toLowerCase()))
+          .sorted()
+          .collect(Collectors.toList());
+    }
+    return Collections.emptyList();
   }
 }

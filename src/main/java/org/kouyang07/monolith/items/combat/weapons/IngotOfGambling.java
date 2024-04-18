@@ -22,11 +22,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.mechanics.cooldown.CoolDownItems;
 
 @Getter
-public class IngotOfGambling extends MonoItemsIO implements Listener {
+public class IngotOfGambling extends MonoItems implements Listener {
   @Getter private static final IngotOfGambling instance = new IngotOfGambling();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -43,6 +43,8 @@ public class IngotOfGambling extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Right-click to use").color(GRAY));
     item.lore(lore);
+
+    items.put("ingot_of_gambling", this);
     return item;
   }
 

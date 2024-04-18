@@ -21,9 +21,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class BloodSacrifice extends MonoItemsIO implements Listener {
+public class BloodSacrifice extends MonoItems implements Listener {
   @Getter private static final BloodSacrifice instance = new BloodSacrifice();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -41,6 +41,8 @@ public class BloodSacrifice extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Sacrifice 5 hearts for a strength 3 buff for 4 seconds").color(GRAY));
     item.lore(lore);
+
+    items.put("blood_sacrifice", this);
     return item;
   }
 

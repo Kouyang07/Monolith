@@ -23,9 +23,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class RageHelmet extends MonoItemsIO implements Listener {
+public class RageHelmet extends MonoItems implements Listener {
   @Getter private static final RageHelmet instance = new RageHelmet();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -43,6 +43,8 @@ public class RageHelmet extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Gives + 0.4 damage per heart lost").color(GRAY));
     item.lore(lore);
+
+    items.put("rage_helmet", this);
     return item;
   }
 

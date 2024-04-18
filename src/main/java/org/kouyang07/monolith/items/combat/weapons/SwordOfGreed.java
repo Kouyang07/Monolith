@@ -28,9 +28,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class SwordOfGreed extends MonoItemsIO implements Listener {
+public class SwordOfGreed extends MonoItems implements Listener {
   @Getter private static final SwordOfGreed instance = new SwordOfGreed();
   @Getter private static final ItemStack item = instance.create();
   @Getter static final Recipe recipe = instance.recipe();
@@ -68,6 +68,8 @@ public class SwordOfGreed extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Costs 1 diamond per hit").color(GRAY));
     item.lore(lore);
+
+    items.put("sword_of_greed", this);
     return item;
   }
 

@@ -21,9 +21,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class SoldiersRepose extends MonoItemsIO implements Listener {
+public class SoldiersRepose extends MonoItems implements Listener {
   @Getter private static final SoldiersRepose instance = new SoldiersRepose();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -45,6 +45,8 @@ public class SoldiersRepose extends MonoItemsIO implements Listener {
     lore.add(Component.text("Slowness 10").color(GRAY));
     lore.add(Component.text("Weakness 3").color(GRAY));
     item.lore(lore);
+
+    items.put("soldiers_repose", this);
     return item;
   }
 
@@ -53,7 +55,7 @@ public class SoldiersRepose extends MonoItemsIO implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "soldiers_repose");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("BDB", "DGD", "D D");
+    recipe.shape("BDB", "DGD", "B B");
     recipe.setIngredient('D', Material.DIAMOND);
     recipe.setIngredient('B', Material.DIAMOND_BLOCK);
     recipe.setIngredient('G', Material.GOLDEN_APPLE);

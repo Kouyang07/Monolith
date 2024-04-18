@@ -24,9 +24,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class SonicCrossbow extends MonoItemsIO implements Listener {
+public class SonicCrossbow extends MonoItems implements Listener {
   @Getter private static final SonicCrossbow instance = new SonicCrossbow();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -44,6 +44,8 @@ public class SonicCrossbow extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Right-click to use").color(GRAY));
     item.lore(lore);
+
+    items.put("sonic_crossbow", this);
     return item;
   }
 

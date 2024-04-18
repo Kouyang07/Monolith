@@ -21,10 +21,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
 @Getter
-public class DeathCount extends MonoItemsIO implements Listener {
+public class DeathCount extends MonoItems implements Listener {
   @Getter private static final DeathCount instance = new DeathCount();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -58,6 +58,8 @@ public class DeathCount extends MonoItemsIO implements Listener {
     recipe.setIngredient('B', Material.BELL);
     recipe.setIngredient('E', Material.BOOK);
     recipe.setIngredient('A', Material.SOUL_SAND);
+
+    items.put("death_count", this);
     return recipe;
   }
 

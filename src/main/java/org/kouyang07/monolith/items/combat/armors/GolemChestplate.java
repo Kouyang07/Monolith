@@ -23,9 +23,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class GolemChestplate extends MonoItemsIO implements Listener {
+public class GolemChestplate extends MonoItems implements Listener {
   @Getter private static final GolemChestplate instance = new GolemChestplate();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
@@ -47,6 +47,8 @@ public class GolemChestplate extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Gives slowness 1").color(GRAY));
     item.lore(lore);
+
+    items.put("golem_chestplate", this);
     return item;
   }
 

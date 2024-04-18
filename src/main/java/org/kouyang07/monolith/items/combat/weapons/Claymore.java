@@ -20,9 +20,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class Claymore extends MonoItemsIO implements Listener {
+public class Claymore extends MonoItems implements Listener {
   @Getter private static final Claymore instance = new Claymore();
   @Getter private static final ItemStack item = instance.create();
   @Getter static final Recipe recipe = instance.recipe();
@@ -57,6 +57,8 @@ public class Claymore extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("0.5 swing speed").color(GRAY));
     item.lore(lore);
+
+    items.put("claymore", this);
     return item;
   }
 

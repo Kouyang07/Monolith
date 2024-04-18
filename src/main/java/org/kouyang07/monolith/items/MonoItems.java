@@ -1,10 +1,13 @@
 package org.kouyang07.monolith.items;
 
+import java.util.HashMap;
 import java.util.Objects;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
-public abstract class MonoItemsIO {
+public abstract class MonoItems {
+
+  public static HashMap<String, MonoItems> items = new HashMap<>();
 
   public ItemStack create() {
     return null;

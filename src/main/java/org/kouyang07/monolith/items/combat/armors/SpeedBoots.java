@@ -22,9 +22,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.MonoItemsIO;
+import org.kouyang07.monolith.items.MonoItems;
 
-public class SpeedBoots extends MonoItemsIO implements Listener {
+public class SpeedBoots extends MonoItems implements Listener {
   @Getter private static final SpeedBoots instance = new SpeedBoots();
   @Getter private static final ItemStack item = instance.create();
   @Getter static final Recipe recipe = instance.recipe();
@@ -43,6 +43,8 @@ public class SpeedBoots extends MonoItemsIO implements Listener {
     lore.add(Component.empty());
     lore.add(Component.text("Gives speed 1").color(GRAY));
     item.lore(lore);
+
+    items.put("speed_boots", this);
     return item;
   }
 
