@@ -37,7 +37,7 @@ public class Claymore extends MonoItems implements Listener {
           new AttributeModifier(
               UUID.randomUUID(),
               "generic.attackDamage",
-              15.0,
+              12.5,
               AttributeModifier.Operation.ADD_NUMBER,
               EquipmentSlot.HAND);
       AttributeModifier modifier =
@@ -66,9 +66,10 @@ public class Claymore extends MonoItems implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "claymore");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("OSO", "OSO", "ONO");
+    recipe.shape("NSN", "OEO", "NNN");
     recipe.setIngredient('O', Material.OBSIDIAN);
     recipe.setIngredient('S', Material.DIAMOND_SWORD);
+    recipe.setIngredient('E', Material.NETHERITE_SWORD);
     recipe.setIngredient('N', Material.NETHERITE_INGOT);
     return recipe;
   }
