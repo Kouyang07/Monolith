@@ -50,7 +50,7 @@ public class CustomAttributes implements Listener {
       double originalDamage = event.getDamage();
       double defense =
           Monolith.playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense();
-      event.setDamage(originalDamage - (defense * 5));
+      event.setDamage((originalDamage * (1.0 - (defense / 10.0))));
     }
   }
 
@@ -188,7 +188,7 @@ public class CustomAttributes implements Listener {
           return false;
         }
       case 3:
-        if (player.getLevel() > 100) {
+        if (player.getLevel() > 150) {
           player.setLevel(player.getLevel() - 100);
           return true;
         } else {

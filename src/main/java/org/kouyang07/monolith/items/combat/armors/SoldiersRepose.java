@@ -39,7 +39,7 @@ public class SoldiersRepose extends MonoItems implements Listener {
     List<Component> lore = new ArrayList<>();
     lore.add(Component.text("Stand strong!").color(GOLD));
     lore.add(Component.empty());
-    lore.add(Component.text("Gives the following effect while worn").color(GRAY));
+    lore.add(Component.text("Gives the following effect while sneaking").color(GRAY));
     lore.add(Component.text("Resistance 1").color(GRAY));
     lore.add(Component.text("Regeneration 1").color(GRAY));
     lore.add(Component.text("Slowness 10").color(GRAY));
@@ -94,7 +94,7 @@ public class SoldiersRepose extends MonoItems implements Listener {
             .getPlayer()
             .addPotionEffect(
                 new PotionEffect(
-                    PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0, false, false, true));
+                    PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 2, false, false, true));
       } else {
         event.getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
         event.getPlayer().removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
