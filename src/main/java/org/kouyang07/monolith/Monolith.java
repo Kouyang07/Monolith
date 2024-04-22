@@ -18,7 +18,7 @@ import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
 import org.kouyang07.monolith.items.combat.spells.DeathCount;
 import org.kouyang07.monolith.items.combat.spells.ZombieWand;
 import org.kouyang07.monolith.items.combat.weapons.*;
-import org.kouyang07.monolith.items.resources.ZombiesHeart;
+import org.kouyang07.monolith.items.resources.*;
 import org.kouyang07.monolith.listener.BorderListener;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
@@ -96,6 +96,13 @@ public final class Monolith extends JavaPlugin {
   }
 
   public void initializeItems() {
+    ZombiesHeart.register();
+    CompactDiamond.register();
+    CompactGold.register();
+    CompactNetherite.register();
+    CompactIron.register();
+    CompactObsidian.register();
+
     GolemChestplate.register();
     RageHelmet.register();
     SpeedBoots.register();
@@ -111,8 +118,6 @@ public final class Monolith extends JavaPlugin {
     ZombieWand.register();
 
     TotemOfSafekeeping.register();
-
-    ZombiesHeart.register();
   }
 
   public void initalizeAttributes() {

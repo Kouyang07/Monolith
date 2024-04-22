@@ -29,6 +29,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.resources.CompactDiamond;
+import org.kouyang07.monolith.items.resources.CompactGold;
 
 public class SwordOfGreed extends MonoItems implements Listener {
   @Getter private static final SwordOfGreed instance = new SwordOfGreed();
@@ -45,7 +47,7 @@ public class SwordOfGreed extends MonoItems implements Listener {
           new AttributeModifier(
               UUID.randomUUID(),
               "generic.attackDamage",
-              16.0,
+              18.0,
               AttributeModifier.Operation.ADD_NUMBER,
               EquipmentSlot.HAND);
       AttributeModifier speedModifier =
@@ -78,9 +80,9 @@ public class SwordOfGreed extends MonoItems implements Listener {
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "sword_of_greed");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
     recipe.shape("DDD", "DSG", "GGG");
-    recipe.setIngredient('G', Material.GOLD_BLOCK);
-    recipe.setIngredient('D', Material.DIAMOND_BLOCK);
-    recipe.setIngredient('S', Material.NETHERITE_SWORD);
+    recipe.setIngredient('G', CompactGold.getItem());
+    recipe.setIngredient('D', CompactDiamond.getItem());
+    recipe.setIngredient('S', Material.DIAMOND_SWORD);
     return recipe;
   }
 

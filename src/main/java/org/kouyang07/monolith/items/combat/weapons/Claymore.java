@@ -21,6 +21,8 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.resources.CompactNetherite;
+import org.kouyang07.monolith.items.resources.CompactObsidian;
 
 public class Claymore extends MonoItems implements Listener {
   @Getter private static final Claymore instance = new Claymore();
@@ -29,7 +31,7 @@ public class Claymore extends MonoItems implements Listener {
 
   @Override
   public ItemStack create() {
-    ItemStack item = new ItemStack(Material.STONE_SWORD, 1);
+    ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
     ItemMeta meta = item.getItemMeta();
     if (meta != null) {
       meta.displayName(Component.text("Claymore").color(PURPLE));
@@ -37,7 +39,7 @@ public class Claymore extends MonoItems implements Listener {
           new AttributeModifier(
               UUID.randomUUID(),
               "generic.attackDamage",
-              12.5,
+              14.0,
               AttributeModifier.Operation.ADD_NUMBER,
               EquipmentSlot.HAND);
       AttributeModifier modifier =
@@ -66,11 +68,10 @@ public class Claymore extends MonoItems implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "claymore");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("NSN", "OEO", "NNN");
-    recipe.setIngredient('O', Material.OBSIDIAN);
-    recipe.setIngredient('S', Material.DIAMOND_SWORD);
-    recipe.setIngredient('E', Material.NETHERITE_SWORD);
-    recipe.setIngredient('N', Material.NETHERITE_INGOT);
+    recipe.shape("OOO", "OEO", "NNN");
+    recipe.setIngredient('O', CompactObsidian.getItem());
+    recipe.setIngredient('E', Material.DIAMOND_SWORD);
+    recipe.setIngredient('N', CompactNetherite.getItem());
     return recipe;
   }
 

