@@ -20,3 +20,6 @@ commands:
   skills:
     description: Open the skills GUI
     usage: /skills
+  monorecipe:
+    description: Look up recipe for custom items
+    usage: /monorecipe [itemName]

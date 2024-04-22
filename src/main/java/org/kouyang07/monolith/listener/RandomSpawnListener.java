@@ -21,7 +21,8 @@ public class RandomSpawnListener implements Listener {
         int y = world.getHighestBlockYAt(x, z) - 1; // Get the top non-air block's Y
 
         randomLocation = new Location(world, x, y, z);
-      } while (!randomLocation.getBlock().getType().isSolid() || randomLocation.getBlock().isLiquid());
+      } while (!randomLocation.getBlock().getType().isSolid()
+          || randomLocation.getBlock().isLiquid());
 
       // Teleport the player to one block above the found location to ensure they're not stuck
       event.getPlayer().teleport(randomLocation.add(0, 1, 0));

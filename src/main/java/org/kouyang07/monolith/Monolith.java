@@ -8,10 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kouyang07.monolith.commands.GiveCommands;
-import org.kouyang07.monolith.commands.LSCommands;
-import org.kouyang07.monolith.commands.SpawnCommands;
-import org.kouyang07.monolith.commands.StatCommands;
+import org.kouyang07.monolith.commands.*;
 import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
 import org.kouyang07.monolith.items.combat.armors.RageHelmet;
 import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
@@ -63,6 +60,8 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
     getServer().getPluginManager().registerEvents(new RandomSpawnListener(), this);
 
+    getServer().getPluginManager().registerEvents(new RecipeCommand(), this);
+
     getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
     getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
     getServer().getPluginManager().registerEvents(Claymore.getInstance(), this);
@@ -89,6 +88,7 @@ public final class Monolith extends JavaPlugin {
     Objects.requireNonNull(getCommand("monocreate")).setExecutor(new GiveCommands());
     Objects.requireNonNull(getCommand("monospawn")).setExecutor(new SpawnCommands());
     Objects.requireNonNull(getCommand("skills")).setExecutor(new StatCommands());
+    Objects.requireNonNull(getCommand("monorecipe")).setExecutor(new RecipeCommand());
   }
 
   public void initializeItems() {
