@@ -89,16 +89,11 @@ public class SoldiersRepose extends MonoItems implements Listener {
         event
             .getPlayer()
             .addPotionEffect(
-                new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 9, false, false, true));
-        event
-            .getPlayer()
-            .addPotionEffect(
                 new PotionEffect(
                     PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 2, false, false, true));
       } else {
         event.getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
         event.getPlayer().removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-        event.getPlayer().removePotionEffect(PotionEffectType.SLOW);
         event.getPlayer().removePotionEffect(PotionEffectType.WEAKNESS);
       }
     }

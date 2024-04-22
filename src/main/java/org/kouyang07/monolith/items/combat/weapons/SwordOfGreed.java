@@ -45,7 +45,7 @@ public class SwordOfGreed extends MonoItems implements Listener {
           new AttributeModifier(
               UUID.randomUUID(),
               "generic.attackDamage",
-              20.0,
+              16.0,
               AttributeModifier.Operation.ADD_NUMBER,
               EquipmentSlot.HAND);
       AttributeModifier speedModifier =
@@ -80,7 +80,7 @@ public class SwordOfGreed extends MonoItems implements Listener {
     recipe.shape("DDD", "DSG", "GGG");
     recipe.setIngredient('G', Material.GOLD_BLOCK);
     recipe.setIngredient('D', Material.DIAMOND_BLOCK);
-    recipe.setIngredient('S', Material.DIAMOND_SWORD);
+    recipe.setIngredient('S', Material.NETHERITE_SWORD);
     return recipe;
   }
 

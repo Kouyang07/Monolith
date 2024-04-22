@@ -40,7 +40,6 @@ public class GolemChestplate extends MonoItems implements Listener {
 
       // Add unbreaking enchantment
       item.addUnsafeEnchantment(Enchantment.DURABILITY, 5);
-      item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
     }
     List<Component> lore = new ArrayList<>();
     lore.add(Component.text("Makes you immovable like a golem!").color(GOLD));

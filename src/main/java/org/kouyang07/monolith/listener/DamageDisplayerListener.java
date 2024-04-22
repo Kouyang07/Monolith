@@ -39,6 +39,8 @@ public class DamageDisplayerListener implements Listener {
                   ));
       armorStand.setCustomNameVisible(true);
       armorStand.setVisible(false);
+      armorStand.setSmall(true);
+      armorStand.setInvulnerable(true);
 
       // Make the armor stand disappear after some time
       getPlugin(Monolith.class)

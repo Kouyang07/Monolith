@@ -82,7 +82,7 @@ public class BloodSacrifice extends MonoItems implements Listener {
         event.getPlayer().setHealth(event.getPlayer().getHealth() - 10);
         event
             .getPlayer()
-            .addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+            .addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 2));
         event
             .getPlayer()
             .sendMessage(

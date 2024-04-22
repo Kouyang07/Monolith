@@ -152,31 +152,7 @@ public class CustomAttributes implements Listener {
     }
     switch (currentValue) {
       case 0:
-        if (player.getLevel() > 10) {
-          player.setLevel(player.getLevel() - 10);
-          return true;
-        } else {
-          player.sendMessage(
-              Component.text(
-                      "You do not have enough levels to purchase this upgrade! Needs 10 and you have "
-                          + player.getLevel())
-                  .color(Monolith.FAIL_COLOR_RED));
-          return false;
-        }
-      case 1:
-        if (player.getLevel() > 25) {
-          player.setLevel(player.getLevel() - 25);
-          return true;
-        } else {
-          player.sendMessage(
-              Component.text(
-                      "You do not have enough levels to purchase this upgrade! Needs 25 and you have "
-                          + player.getLevel())
-                  .color(Monolith.FAIL_COLOR_RED));
-          return false;
-        }
-      case 2:
-        if (player.getLevel() > 50) {
+        if (player.getLevel() >= 50) {
           player.setLevel(player.getLevel() - 50);
           return true;
         } else {
@@ -187,14 +163,38 @@ public class CustomAttributes implements Listener {
                   .color(Monolith.FAIL_COLOR_RED));
           return false;
         }
-      case 3:
-        if (player.getLevel() > 150) {
+      case 1:
+        if (player.getLevel() >= 100) {
           player.setLevel(player.getLevel() - 100);
           return true;
         } else {
           player.sendMessage(
               Component.text(
                       "You do not have enough levels to purchase this upgrade! Needs 100 and you have "
+                          + player.getLevel())
+                  .color(Monolith.FAIL_COLOR_RED));
+          return false;
+        }
+      case 2:
+        if (player.getLevel() >= 200) {
+          player.setLevel(player.getLevel() - 200);
+          return true;
+        } else {
+          player.sendMessage(
+              Component.text(
+                      "You do not have enough levels to purchase this upgrade! Needs 200 and you have "
+                          + player.getLevel())
+                  .color(Monolith.FAIL_COLOR_RED));
+          return false;
+        }
+      case 3:
+        if (player.getLevel() >= 400) {
+          player.setLevel(player.getLevel() - 400);
+          return true;
+        } else {
+          player.sendMessage(
+              Component.text(
+                      "You do not have enough levels to purchase this upgrade! Needs 400 and you have "
                           + player.getLevel())
                   .color(Monolith.FAIL_COLOR_RED));
           return false;

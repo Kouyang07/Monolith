@@ -93,20 +93,20 @@ public class IngotOfGambling extends MonoItems implements Listener {
       if (chance <= 15) {
         // 15% chance to get Weakness 1
         event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 0));
-        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 15);
       } else if (chance <= 50) {
         // 35% chance to get Weakness 2
         event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 1));
-        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 15);
       } else if (chance <= 65) {
         // 15% chance to get Strength 1
         event
             .getPlayer()
             .addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 0));
-        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 15);
       } else {
         // 35% chance to get Strength 2
-        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 90);
+        addCoolDown(event.getPlayer().getUniqueId(), CoolDownItems.ingot_of_gambling, 15);
         event
             .getPlayer()
             .addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 1));

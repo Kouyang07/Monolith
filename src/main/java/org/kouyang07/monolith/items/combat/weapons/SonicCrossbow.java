@@ -40,9 +40,9 @@ public class SonicCrossbow extends MonoItems implements Listener {
     }
     List<Component> lore = new ArrayList<>();
     lore.add(Component.text("Harnesses the power of the Warden").color(GOLD));
-    lore.add(Component.text("Does 16 damage on shoot").color(GOLD));
     lore.add(Component.empty());
-    lore.add(Component.text("Right-click to use").color(GRAY));
+    lore.add(
+        Component.text("Does more damage the further away you are from the target!").color(GRAY));
     item.lore(lore);
 
     items.put("sonic_crossbow", this);
@@ -74,6 +74,7 @@ public class SonicCrossbow extends MonoItems implements Listener {
       }
       if (isItem(player.getInventory().getItemInMainHand(), item)
           || isItem(player.getInventory().getItemInOffHand(), item)) {
+        player.getInventory().addItem(new ItemStack(Material.ARROW));
         event.setCancelled(true);
         if (player.getInventory().contains(Material.SCULK_CATALYST)
             || player.getGameMode().equals(GameMode.CREATIVE)) {
@@ -111,14 +112,18 @@ public class SonicCrossbow extends MonoItems implements Listener {
     Location eye = player.getEyeLocation();
     Vector direction = eye.getDirection();
 
-    for (int i = 0; i < 30; i++) { // Length of the beam
+    for (int i = 0; i < 32; i++) { // Length of the beam
       Location point = eye.add(direction);
       player.getWorld().spawnParticle(Particle.END_ROD, point, 1, 0, 0, 0, 0.01);
 
+      if (point.isBlock() && i > 3) {
+        break;
+      }
       // Check for and damage all Damageable entities except the shooter
+      int finalI = i;
       point.getNearbyEntities(0.5, 0.5, 0.5).stream()
           .filter(entity -> entity instanceof Damageable && entity != player)
-          .forEach(entity -> ((Damageable) entity).damage(16));
+          .forEach(entity -> ((Damageable) entity).damage(16 * (finalI / 10.0)));
     }
   }
 }

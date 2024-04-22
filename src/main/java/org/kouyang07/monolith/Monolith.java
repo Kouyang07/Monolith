@@ -24,12 +24,13 @@ import org.kouyang07.monolith.items.combat.weapons.*;
 import org.kouyang07.monolith.items.resources.ZombiesHeart;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
+import org.kouyang07.monolith.listener.RandomSpawnListener;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
 import org.kouyang07.monolith.mobs.Elite_Zombie;
 
 public final class Monolith extends JavaPlugin {
 
-  public static boolean debug = true;
+  public static boolean debug = false;
 
   public static TextColor SUCCESS_COLOR_GREEN = TextColor.color(0, 255, 0);
   public static TextColor FAIL_COLOR_RED = TextColor.color(255, 0, 0);
@@ -60,6 +61,7 @@ public final class Monolith extends JavaPlugin {
   public void registerListeners() {
     getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
     getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
+    getServer().getPluginManager().registerEvents(new RandomSpawnListener(), this);
 
     getServer().getPluginManager().registerEvents(SwordOfGreed.getInstance(), this);
     getServer().getPluginManager().registerEvents(IngotOfGambling.getInstance(), this);
