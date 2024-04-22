@@ -19,10 +19,12 @@ import org.kouyang07.monolith.items.combat.spells.DeathCount;
 import org.kouyang07.monolith.items.combat.spells.ZombieWand;
 import org.kouyang07.monolith.items.combat.weapons.*;
 import org.kouyang07.monolith.items.resources.ZombiesHeart;
+import org.kouyang07.monolith.listener.BorderListener;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
 import org.kouyang07.monolith.listener.RandomSpawnListener;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
+import org.kouyang07.monolith.mobs.Elite_Skeleton;
 import org.kouyang07.monolith.mobs.Elite_Zombie;
 
 public final class Monolith extends JavaPlugin {
@@ -59,6 +61,7 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new LifeStealListener(), this);
     getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
     getServer().getPluginManager().registerEvents(new RandomSpawnListener(), this);
+    getServer().getPluginManager().registerEvents(new BorderListener(), this);
 
     getServer().getPluginManager().registerEvents(new RecipeCommand(), this);
 
@@ -81,6 +84,7 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
 
     getServer().getPluginManager().registerEvents(Elite_Zombie.getInstance(), this);
+    getServer().getPluginManager().registerEvents(Elite_Skeleton.getInstance(), this);
   }
 
   public void registerCommands() {
