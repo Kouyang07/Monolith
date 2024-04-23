@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.kyori.adventure.text.Component;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +25,8 @@ public class GiveCommands implements CommandExecutor, TabCompleter {
       sender.sendMessage("Only players can use this command.");
       return true;
     }
+
+    if (!player.getGameMode().equals(GameMode.CREATIVE)) return true;
 
     // Ensure the command has at least one argument (the item name)
     if (args.length < 1) {

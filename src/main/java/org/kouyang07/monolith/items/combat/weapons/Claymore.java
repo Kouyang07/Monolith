@@ -68,10 +68,11 @@ public class Claymore extends MonoItems implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "claymore");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("OOO", "OEO", "NNN");
+    recipe.shape("OOO", "OEO", "NSN");
     recipe.setIngredient('O', CompactObsidian.getItem());
     recipe.setIngredient('E', Material.DIAMOND_SWORD);
     recipe.setIngredient('N', CompactNetherite.getItem());
+    recipe.setIngredient('S', Material.STICK);
     return recipe;
   }
 
