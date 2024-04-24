@@ -21,7 +21,7 @@ public class LSCommands implements CommandExecutor {
 
       // Check if the command has the correct number of arguments
       if (args.length != 3) {
-        player.sendMessage("Usage: /ls set [player] [maxHealth]");
+        player.sendMessage("Usage: /ls set/add [player] [maxHealth]");
         return true;
       }
 
@@ -48,10 +48,19 @@ public class LSCommands implements CommandExecutor {
         return true;
       }
 
-      // Set the player's max health
-      Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_MAX_HEALTH))
-          .setBaseValue(maxHealth);
-      target.setHealth(maxHealth); // Optionally set current health to max as well
+      if (args[0].equalsIgnoreCase("add")) {
+        maxHealth +=
+            Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_MAX_HEALTH))
+                .getBaseValue();
+        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_MAX_HEALTH))
+            .setBaseValue(maxHealth);
+        target.setHealth(maxHealth);
+      } else {
+        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_MAX_HEALTH))
+            .setBaseValue(maxHealth);
+        target.setHealth(maxHealth);
+      }
+
       player.sendMessage("Set " + target.getName() + "'s max health to " + maxHealth);
       return true;
     }

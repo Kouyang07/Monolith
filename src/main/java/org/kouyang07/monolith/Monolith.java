@@ -13,6 +13,7 @@ import org.kouyang07.monolith.items.combat.armors.GolemChestplate;
 import org.kouyang07.monolith.items.combat.armors.RageHelmet;
 import org.kouyang07.monolith.items.combat.armors.SoldiersRepose;
 import org.kouyang07.monolith.items.combat.armors.SpeedBoots;
+import org.kouyang07.monolith.items.combat.misc.HeartOfTheUndead;
 import org.kouyang07.monolith.items.combat.misc.TotemOfSafekeeping;
 import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
 import org.kouyang07.monolith.items.combat.spells.DeathCount;
@@ -71,6 +72,7 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(SonicCrossbow.getInstance(), this);
 
     getServer().getPluginManager().registerEvents(TotemOfSafekeeping.getInstance(), this);
+    getServer().getPluginManager().registerEvents(HeartOfTheUndead.getInstance(), this);
 
     getServer().getPluginManager().registerEvents(BloodSacrifice.getInstance(), this);
     getServer().getPluginManager().registerEvents(DeathCount.getInstance(), this);
@@ -118,6 +120,7 @@ public final class Monolith extends JavaPlugin {
     ZombieWand.register();
 
     TotemOfSafekeeping.register();
+    HeartOfTheUndead.register();
   }
 
   public void initalizeAttributes() {

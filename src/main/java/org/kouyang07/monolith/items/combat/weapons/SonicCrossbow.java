@@ -25,6 +25,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.resources.SkeletonsBone;
 
 public class SonicCrossbow extends MonoItems implements Listener {
   @Getter private static final SonicCrossbow instance = new SonicCrossbow();
@@ -53,11 +54,12 @@ public class SonicCrossbow extends MonoItems implements Listener {
     ItemStack item = create();
     NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "sonic_crossbow");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("DSD", "DCD", "GEG");
+    recipe.shape("DSD", "BCB", "GEG");
     recipe.setIngredient('D', Material.DISC_FRAGMENT_5);
     recipe.setIngredient('S', Material.SCULK_SHRIEKER);
     recipe.setIngredient('C', Material.CROSSBOW);
     recipe.setIngredient('E', Material.ECHO_SHARD);
+    recipe.setIngredient('B', SkeletonsBone.getItem());
     return recipe;
   }
 

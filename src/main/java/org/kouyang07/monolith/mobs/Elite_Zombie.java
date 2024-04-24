@@ -17,7 +17,6 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
@@ -76,11 +75,6 @@ public class Elite_Zombie extends MonoMobs implements Listener {
   @EventHandler
   private void onEntityDeathEvent(EntityDeathEvent event) {
     if (event.getEntity().customName() == null) return;
-    if (!event
-        .getEntity()
-        .getLastDamageCause()
-        .getCause()
-        .equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) return;
     if (Objects.equals(
         event.getEntity().customName(),
         Component.text("[Lvl 1] Elite Zombie").color(Monolith.FAIL_COLOR_RED))) {

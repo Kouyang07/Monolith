@@ -1,7 +1,11 @@
 package org.kouyang07.monolith.mobs;
 
+import static org.bukkit.Bukkit.getLogger;
+import static org.kouyang07.monolith.Monolith.debug;
+
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
@@ -14,11 +18,13 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
+import org.kouyang07.monolith.items.resources.SkeletonsBone;
 
 public class Elite_Skeleton extends MonoMobs implements Listener {
   @Getter private static final Elite_Skeleton instance = new Elite_Skeleton();
@@ -84,6 +90,25 @@ public class Elite_Skeleton extends MonoMobs implements Listener {
       if (!(event.getTarget() instanceof Player)
           || ((Player) event.getTarget()).getGameMode() == GameMode.CREATIVE) {
         event.setCancelled(true);
+      }
+    }
+  }
+
+  @EventHandler
+  private void onEntityDeathEvent(EntityDeathEvent event) {
+    if (event.getEntity().customName() == null) return;
+    if (Objects.equals(
+        event.getEntity().customName(),
+        Component.text("[Lvl 1] Elite Skeleton").color(Monolith.FAIL_COLOR_RED))) {
+      int rng = ((int) (Math.random() * 21));
+      if (rng == 10) {
+        if (debug) {
+          getLogger()
+              .log(
+                  Level.INFO,
+                  "Skeleton's Bone was dropped at " + event.getEntity().getLocation().toString());
+        }
+        event.getDrops().add(SkeletonsBone.getItem());
       }
     }
   }
