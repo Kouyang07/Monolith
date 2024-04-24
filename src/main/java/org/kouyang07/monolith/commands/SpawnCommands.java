@@ -19,7 +19,7 @@ public class SpawnCommands implements CommandExecutor, TabCompleter {
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (sender instanceof Player player) {
-      if(!player.isOp()) return true;
+      if (!player.isOp()) return true;
       if (command.getName().equalsIgnoreCase("monospawn")) {
         switch (args[0].toLowerCase()) {
           case "elite_zombie":

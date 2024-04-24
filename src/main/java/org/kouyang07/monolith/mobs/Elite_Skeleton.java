@@ -24,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.resources.SkeletonsBone;
+import org.kouyang07.monolith.items.resources.drops.SkeletonsBone;
 
 public class Elite_Skeleton extends MonoMobs implements Listener {
   @Getter private static final Elite_Skeleton instance = new Elite_Skeleton();

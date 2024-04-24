@@ -25,7 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.resources.CompactIron;
+import org.kouyang07.monolith.items.resources.compact.CompactIron;
 
 public class GolemChestplate extends MonoItems implements Listener {
   @Getter private static final GolemChestplate instance = new GolemChestplate();

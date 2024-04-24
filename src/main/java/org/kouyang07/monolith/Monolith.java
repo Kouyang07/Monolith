@@ -19,7 +19,10 @@ import org.kouyang07.monolith.items.combat.spells.BloodSacrifice;
 import org.kouyang07.monolith.items.combat.spells.DeathCount;
 import org.kouyang07.monolith.items.combat.spells.ZombieWand;
 import org.kouyang07.monolith.items.combat.weapons.*;
-import org.kouyang07.monolith.items.resources.*;
+import org.kouyang07.monolith.items.resources.compact.*;
+import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
+import org.kouyang07.monolith.items.resources.enchanted.EnchantedQuartz;
+import org.kouyang07.monolith.items.resources.refined.RefinedQuartz;
 import org.kouyang07.monolith.listener.BorderListener;
 import org.kouyang07.monolith.listener.DamageDisplayerListener;
 import org.kouyang07.monolith.listener.LifeStealListener;
@@ -30,7 +33,7 @@ import org.kouyang07.monolith.mobs.Elite_Zombie;
 
 public final class Monolith extends JavaPlugin {
 
-  public static boolean debug = false;
+  public static boolean debug = true;
 
   public static TextColor SUCCESS_COLOR_GREEN = TextColor.color(0, 255, 0);
   public static TextColor FAIL_COLOR_RED = TextColor.color(255, 0, 0);
@@ -104,6 +107,10 @@ public final class Monolith extends JavaPlugin {
     CompactNetherite.register();
     CompactIron.register();
     CompactObsidian.register();
+
+    CompactQuartz.register();
+    EnchantedQuartz.register();
+    RefinedQuartz.register();
 
     GolemChestplate.register();
     RageHelmet.register();

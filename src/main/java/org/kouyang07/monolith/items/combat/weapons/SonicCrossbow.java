@@ -25,7 +25,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.resources.SkeletonsBone;
+import org.kouyang07.monolith.items.resources.drops.SkeletonsBone;
 
 public class SonicCrossbow extends MonoItems implements Listener {
   @Getter private static final SonicCrossbow instance = new SonicCrossbow();

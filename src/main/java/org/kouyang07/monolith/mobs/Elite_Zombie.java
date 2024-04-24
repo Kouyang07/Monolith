@@ -23,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.items.resources.ZombiesHeart;
+import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
 
 public class Elite_Zombie extends MonoMobs implements Listener {
   @Getter private static final Elite_Zombie instance = new Elite_Zombie();

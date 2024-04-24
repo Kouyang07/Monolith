@@ -29,8 +29,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.resources.CompactDiamond;
-import org.kouyang07.monolith.items.resources.CompactGold;
+import org.kouyang07.monolith.items.resources.compact.CompactDiamond;
+import org.kouyang07.monolith.items.resources.compact.CompactGold;
 
 public class SwordOfGreed extends MonoItems implements Listener {
   @Getter private static final SwordOfGreed instance = new SwordOfGreed();

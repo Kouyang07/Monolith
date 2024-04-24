@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.items.resources;
+package org.kouyang07.monolith.items.resources.compact;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.GOLD;

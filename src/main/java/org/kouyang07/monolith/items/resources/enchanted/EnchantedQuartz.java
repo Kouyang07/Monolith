@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.items.resources;
+package org.kouyang07.monolith.items.resources.enchanted;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 import static org.kouyang07.monolith.Monolith.GOLD;
@@ -18,39 +18,40 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
+import org.kouyang07.monolith.items.resources.compact.CompactQuartz;
 
-public class CompactDiamond extends MonoItems {
+public class EnchantedQuartz extends MonoItems {
 
-  @Getter private static final CompactDiamond instance = new CompactDiamond();
+  @Getter private static final EnchantedQuartz instance = new EnchantedQuartz();
   @Getter private static final ItemStack item = instance.create();
   @Getter private static final Recipe recipe = instance.recipe();
 
   @Override
   public ItemStack create() {
-    ItemStack item = new ItemStack(Material.DIAMOND, 1);
+    ItemStack item = new ItemStack(Material.QUARTZ_BLOCK, 1);
     ItemMeta meta = item.getItemMeta();
     if (meta != null) {
-      meta.displayName(Component.text("Compact Diamond").color(Monolith.PURPLE));
+      meta.displayName(Component.text("Enchanted Quartz").color(Monolith.PURPLE));
       item.setItemMeta(meta);
       meta.addEnchant(Enchantment.DURABILITY, 1, true);
     }
     List<Component> lore = new ArrayList<>();
-    lore.add(Component.text("Very dense diamond").color(GOLD));
+    lore.add(Component.text("Super dense quartz").color(GOLD));
     lore.add(Component.empty());
     lore.add(Component.text("Resource").color(GRAY));
     item.lore(lore);
 
-    items.put("compact_diamond", this);
+    items.put("enchanted_quartz", this);
     return item;
   }
 
   @Override
   public Recipe recipe() {
     ItemStack item = create();
-    NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "compact_diamond");
+    NamespacedKey key = new NamespacedKey(getPlugin(Monolith.class), "enchanted_quartz");
     ShapedRecipe recipe = new ShapedRecipe(key, item);
     recipe.shape("DDD", "DDD", "DDD");
-    recipe.setIngredient('D', Material.DIAMOND_BLOCK);
+    recipe.setIngredient('D', CompactQuartz.getItem());
     return recipe;
   }
 

@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.items.resources;
+package org.kouyang07.monolith.items.resources.drops;
 
 import static org.kouyang07.monolith.Monolith.*;
 

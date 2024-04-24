@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.items.combat.weapons.IngotOfGambling;
-import org.kouyang07.monolith.items.resources.ZombiesHeart;
+import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
 
 public class HeartOfTheUndead extends MonoItems implements Listener {
   @Getter private static final HeartOfTheUndead instance = new HeartOfTheUndead();

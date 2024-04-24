@@ -23,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
 import org.kouyang07.monolith.items.combat.weapons.IngotOfGambling;
-import org.kouyang07.monolith.items.resources.ZombiesHeart;
+import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
 import org.kouyang07.monolith.mechanics.cooldown.CoolDownItems;
 import org.kouyang07.monolith.mechanics.cooldown.Cooldown;
 

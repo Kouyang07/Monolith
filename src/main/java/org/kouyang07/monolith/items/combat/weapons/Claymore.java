@@ -21,8 +21,8 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.MonoItems;
-import org.kouyang07.monolith.items.resources.CompactNetherite;
-import org.kouyang07.monolith.items.resources.CompactObsidian;
+import org.kouyang07.monolith.items.resources.compact.CompactNetherite;
+import org.kouyang07.monolith.items.resources.compact.CompactObsidian;
 
 public class Claymore extends MonoItems implements Listener {
   @Getter private static final Claymore instance = new Claymore();
