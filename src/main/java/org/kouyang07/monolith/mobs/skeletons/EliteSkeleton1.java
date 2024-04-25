@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.mobs;
+package org.kouyang07.monolith.mobs.skeletons;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.debug;
@@ -25,12 +25,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.resources.drops.SkeletonsBone;
+import org.kouyang07.monolith.mobs.MonoMobs;
 
-public class Elite_Skeleton extends MonoMobs implements Listener {
-  @Getter private static final Elite_Skeleton instance = new Elite_Skeleton();
+public class EliteSkeleton1 extends MonoMobs implements Listener {
+  @Getter private static final EliteSkeleton1 instance = new EliteSkeleton1();
   private static final Random random = new Random();
 
-  public Elite_Skeleton() {
+  public EliteSkeleton1() {
     MonoMobs.mobs.put("elite_skeleton", instance);
   }
 
@@ -78,18 +79,6 @@ public class Elite_Skeleton extends MonoMobs implements Listener {
         event.setCancelled(true);
         Location location = event.getEntity().getLocation();
         spawn(location);
-      }
-    }
-  }
-
-  @EventHandler
-  public void onEntityTarget(EntityTargetEvent event) {
-    if (event.getEntity().customName() != null
-        && Objects.requireNonNull(event.getEntity().customName())
-            .contains(Component.text("[Lvl 1]"))) {
-      if (!(event.getTarget() instanceof Player)
-          || ((Player) event.getTarget()).getGameMode() == GameMode.CREATIVE) {
-        event.setCancelled(true);
       }
     }
   }

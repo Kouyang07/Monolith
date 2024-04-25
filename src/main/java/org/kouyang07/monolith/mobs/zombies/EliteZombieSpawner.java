@@ -1,2 +1,6 @@
-package org.kouyang07.monolith.mobs.zombies;public class EliteZombieSpawner {
+package org.kouyang07.monolith.mobs.zombies;
+
+import org.bukkit.event.Listener;
+
+public class EliteZombieSpawner implements Listener {
 }

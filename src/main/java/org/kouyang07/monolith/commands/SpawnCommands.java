@@ -12,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.kouyang07.monolith.Monolith;
-import org.kouyang07.monolith.mobs.Elite_Skeleton;
-import org.kouyang07.monolith.mobs.Elite_Zombie;
+import org.kouyang07.monolith.mobs.skeletons.EliteSkeleton1;
+import org.kouyang07.monolith.mobs.zombies.EliteZombie1;
 
 public class SpawnCommands implements CommandExecutor, TabCompleter {
   @Override
@@ -23,10 +23,10 @@ public class SpawnCommands implements CommandExecutor, TabCompleter {
       if (command.getName().equalsIgnoreCase("monospawn")) {
         switch (args[0].toLowerCase()) {
           case "elite_zombie":
-            Elite_Zombie.getInstance().spawn(player.getLocation());
+            EliteZombie1.getInstance().spawn(player.getLocation());
             break;
           case "elite_skeleton":
-            Elite_Skeleton.getInstance().spawn(player.getLocation());
+            EliteSkeleton1.getInstance().spawn(player.getLocation());
             break;
           default:
             sender.sendMessage(Component.text("Invalid mob type").color(Monolith.FAIL_COLOR_RED));

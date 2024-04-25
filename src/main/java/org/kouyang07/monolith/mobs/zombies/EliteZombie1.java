@@ -1,4 +1,4 @@
-package org.kouyang07.monolith.mobs;
+package org.kouyang07.monolith.mobs.zombies;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.kouyang07.monolith.Monolith.debug;
@@ -24,12 +24,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.kouyang07.monolith.Monolith;
 import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
+import org.kouyang07.monolith.mobs.MonoMobs;
 
-public class Elite_Zombie extends MonoMobs implements Listener {
-  @Getter private static final Elite_Zombie instance = new Elite_Zombie();
+public class EliteZombie1 extends MonoMobs implements Listener {
+  @Getter private static final EliteZombie1 instance = new EliteZombie1();
   private static final Random random = new Random();
 
-  public Elite_Zombie() {
+  public EliteZombie1() {
     MonoMobs.mobs.put("elite_zombie", instance);
   }
 
@@ -98,18 +99,6 @@ public class Elite_Zombie extends MonoMobs implements Listener {
         event.setCancelled(true);
         Location location = event.getEntity().getLocation();
         spawn(location);
-      }
-    }
-  }
-
-  @EventHandler
-  public void onEntityTarget(EntityTargetEvent event) {
-    if (event.getEntity().customName() != null
-        && Objects.requireNonNull(event.getEntity().customName())
-            .contains(Component.text("[Lvl 1]"))) {
-      if (!(event.getTarget() instanceof Player)
-          || ((Player) event.getTarget()).getGameMode() == GameMode.CREATIVE) {
-        event.setCancelled(true);
       }
     }
   }

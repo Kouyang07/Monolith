@@ -23,13 +23,11 @@ import org.kouyang07.monolith.items.resources.compact.*;
 import org.kouyang07.monolith.items.resources.drops.ZombiesHeart;
 import org.kouyang07.monolith.items.resources.enchanted.EnchantedQuartz;
 import org.kouyang07.monolith.items.resources.refined.RefinedQuartz;
-import org.kouyang07.monolith.listener.BorderListener;
-import org.kouyang07.monolith.listener.DamageDisplayerListener;
-import org.kouyang07.monolith.listener.LifeStealListener;
-import org.kouyang07.monolith.listener.RandomSpawnListener;
+import org.kouyang07.monolith.listener.*;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
-import org.kouyang07.monolith.mobs.Elite_Skeleton;
-import org.kouyang07.monolith.mobs.Elite_Zombie;
+import org.kouyang07.monolith.mobs.MonoMobs;
+import org.kouyang07.monolith.mobs.skeletons.EliteSkeleton1;
+import org.kouyang07.monolith.mobs.zombies.EliteZombie1;
 
 public final class Monolith extends JavaPlugin {
 
@@ -88,8 +86,9 @@ public final class Monolith extends JavaPlugin {
 
     getServer().getPluginManager().registerEvents(new CustomAttributes(), this);
 
-    getServer().getPluginManager().registerEvents(Elite_Zombie.getInstance(), this);
-    getServer().getPluginManager().registerEvents(Elite_Skeleton.getInstance(), this);
+    getServer().getPluginManager().registerEvents(new MobRetargeter(), this);
+    getServer().getPluginManager().registerEvents(EliteZombie1.getInstance(), this);
+    getServer().getPluginManager().registerEvents(EliteSkeleton1.getInstance(), this);
   }
 
   public void registerCommands() {
