@@ -20,7 +20,7 @@ public class DamageDisplayerListener implements Listener {
 
       // Spawn the armor stand at the location where the entity was hit
       Location hitLocation = event.getEntity().getLocation();
-      hitLocation.add(2, 0, 0); // Raise the height to make the armor stand more visible
+      hitLocation.add(1.5, 0, 0); // Raise the height to make the armor stand more visible
 
       ArmorStand armorStand =
           (ArmorStand) hitLocation.getWorld().spawnEntity(hitLocation, EntityType.ARMOR_STAND);
@@ -40,7 +40,7 @@ public class DamageDisplayerListener implements Listener {
       armorStand.setCustomNameVisible(true);
       armorStand.setVisible(false);
       armorStand.setSmall(true);
-      armorStand.setInvulnerable(true);
+      armorStand.setMarker(true);
 
       // Make the armor stand disappear after some time
       getPlugin(Monolith.class)

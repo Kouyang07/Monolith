@@ -25,7 +25,6 @@ import org.kouyang07.monolith.items.resources.enchanted.EnchantedQuartz;
 import org.kouyang07.monolith.items.resources.refined.RefinedQuartz;
 import org.kouyang07.monolith.listener.*;
 import org.kouyang07.monolith.mechanics.CustomAttributes;
-import org.kouyang07.monolith.mobs.MonoMobs;
 import org.kouyang07.monolith.mobs.skeletons.EliteSkeleton1;
 import org.kouyang07.monolith.mobs.zombies.EliteZombie1;
 
@@ -64,6 +63,7 @@ public final class Monolith extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new DamageDisplayerListener(), this);
     getServer().getPluginManager().registerEvents(new RandomSpawnListener(), this);
     getServer().getPluginManager().registerEvents(new BorderListener(), this);
+    getServer().getPluginManager().registerEvents(new ItemPlaceListener(), this);
 
     getServer().getPluginManager().registerEvents(new RecipeCommand(), this);
 
